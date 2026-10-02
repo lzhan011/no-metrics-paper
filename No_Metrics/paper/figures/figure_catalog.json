@@ -1,0 +1,60 @@
+{
+  "figures": [
+    {
+      "id": "shortcut-margin-caseb-3sat",
+      "surface_class": "paper_main",
+      "source_data": "../../../SAT_Group_Evaluation/RMC_Paper_ICSE2027_supplementary.tex#tab:com_pern_caseB",
+      "generating_script": "../plot_shortcut_margin_from_latex.py",
+      "outputs": [
+        "shortcut_margin/fig_3sat_caseb_byN.pdf",
+        "shortcut_margin/fig_3sat_caseb_byN.png"
+      ],
+      "main_comparison": "Commercial 3-SAT metric and shortcut-aware trajectories across problem size.",
+      "review_note": "Removed the duplicate legend; the paired 2-SAT panel carries the shared legend."
+    },
+    {
+      "id": "shortcut-margin-caseb-2sat",
+      "surface_class": "paper_main",
+      "source_data": "../../../SAT_Group_Evaluation/RMC_Paper_ICSE2027_supplementary.tex#tab:os_pern_caseB",
+      "generating_script": "../plot_shortcut_margin_from_latex.py",
+      "outputs": [
+        "shortcut_margin/fig_2sat_caseb_byN.pdf",
+        "shortcut_margin/fig_2sat_caseb_byN.png"
+      ],
+      "main_comparison": "Open-weight 2-SAT metric and shortcut-aware trajectories across problem size.",
+      "review_note": "Retained one shared legend for the combined 3-SAT/2-SAT figure and moved both legend rows below the plotting area."
+    },
+    {
+      "id": "shortcut-margin-casec-3sat",
+      "surface_class": "paper_main",
+      "source_data": [
+        "../../../SAT_Group_Evaluation/analysis/commercial_api_results_analysis/rmc_filtered_RMC_caseB_by_N.csv",
+        "../../../SAT_Group_Evaluation/analysis/commercial_api_results_analysis/rmc_filtered_caseC_delta_estimated_by_N.csv"
+      ],
+      "generating_script": "../plot_shortcut_residualization_sensitivity.py",
+      "outputs": [
+        "shortcut_margin/fig_3sat_casec_byN.pdf",
+        "shortcut_margin/fig_3sat_casec_byN.png"
+      ],
+      "audit_report": "shortcut_margin/fig_2_sensitivity_alignment.json",
+      "main_comparison": "Commercial 3-SAT changes in the shortcut ceiling and normalized margins after complexity residualization.",
+      "review_note": "Replaced the duplicated full trajectories with zero-centered residualized-minus-original deltas; retained the shared margin legend only in the paired 2-SAT panel."
+    },
+    {
+      "id": "shortcut-margin-casec-2sat",
+      "surface_class": "paper_main",
+      "source_data": [
+        "../../../SAT_Group_Evaluation/analysis/open_source_LLM_2SAT_analysis/rmc_paper_open_vendor_case_b_by_N.csv",
+        "../../../SAT_Group_Evaluation/analysis/open_source_LLM_2SAT_analysis/rmc_paper_open_vendor_case_c_by_N.csv"
+      ],
+      "generating_script": "../plot_shortcut_residualization_sensitivity.py",
+      "outputs": [
+        "shortcut_margin/fig_2sat_casec_byN.pdf",
+        "shortcut_margin/fig_2sat_casec_byN.png"
+      ],
+      "audit_report": "shortcut_margin/fig_2_sensitivity_alignment.json",
+      "main_comparison": "Open-weight 2-SAT changes in the shortcut ceiling and normalized margins after complexity residualization.",
+      "review_note": "Replaced the duplicated full trajectories with zero-centered residualized-minus-original deltas, added full-precision CP-boundary annotations, and kept one bottom legend."
+    }
+  ]
+}

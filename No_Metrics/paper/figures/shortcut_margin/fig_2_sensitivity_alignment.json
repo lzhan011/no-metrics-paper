@@ -1,0 +1,368 @@
+{
+  "comparison": "complexity-residualized minus original",
+  "boundary_definition": "largest matched source N with a strictly positive full-precision CP margin",
+  "shared_symmetric_axis_limits": {
+    "delta_shortcut_ceiling": [
+      -0.24,
+      0.24
+    ],
+    "delta_normalized_margin": [
+      -0.2,
+      0.2
+    ]
+  },
+  "domains": [
+    {
+      "domain": "3-SAT",
+      "source_original": "/scratch/c00590656/loni/Group_Evaluation/No_Metrics/github_repo/no-metrics-paper/SAT_Group_Evaluation/analysis/commercial_api_results_analysis/rmc_filtered_RMC_caseB_by_N.csv",
+      "source_residualized": "/scratch/c00590656/loni/Group_Evaluation/No_Metrics/github_repo/no-metrics-paper/SAT_Group_Evaluation/analysis/commercial_api_results_analysis/rmc_filtered_caseC_delta_estimated_by_N.csv",
+      "alignment_key": [
+        "domain",
+        "model/configuration",
+        "N"
+      ],
+      "excluded_N_to_match_figure_1": [],
+      "matched_source_rows": 19,
+      "plotted_rows": 19,
+      "unmatched_original_rows": [],
+      "unmatched_residualized_rows": [],
+      "missing_unchanged_fields": [],
+      "changed_prediction_fields": [],
+      "models": {
+        "GPT-5": {
+          "model_config": "gpt-5",
+          "N": [
+            5,
+            10,
+            25,
+            30,
+            40,
+            50,
+            60
+          ],
+          "delta_ranges": {
+            "shortcut_ceiling": [
+              -0.08321280991735541,
+              0.014824380165289218
+            ],
+            "normalized_point_margin": [
+              -0.014480000000000007,
+              0.07402799999999998
+            ],
+            "normalized_cp_margin": [
+              -0.015443000000000002,
+              0.08395599999999999
+            ],
+            "normalized_wilson_margin": [
+              -0.015349000000000002,
+              0.083358
+            ]
+          },
+          "positive_cp_boundary_original": 60,
+          "positive_cp_boundary_residualized": 60
+        },
+        "Opus 4.7 (med. think)": {
+          "model_config": "claude_batch_groups_zero_shot_desc_adaptive_thinking_medium_effort",
+          "N": [
+            5,
+            10,
+            25,
+            50,
+            60
+          ],
+          "delta_ranges": {
+            "shortcut_ceiling": [
+              -0.061958161157024835,
+              0.01922200062493621
+            ],
+            "normalized_point_margin": [
+              -0.01782800000000001,
+              0.02119299999999999
+            ],
+            "normalized_cp_margin": [
+              -0.019248,
+              0.023757
+            ],
+            "normalized_wilson_margin": [
+              -0.019121,
+              0.023577
+            ]
+          },
+          "positive_cp_boundary_original": 60,
+          "positive_cp_boundary_residualized": 60
+        },
+        "DeepSeek-Reasoner": {
+          "model_config": "deepseek-reasoner",
+          "N": [
+            5,
+            10,
+            25,
+            30,
+            40,
+            50,
+            60
+          ],
+          "delta_ranges": {
+            "shortcut_ceiling": [
+              -0.0746922189062341,
+              0.010099772982348758
+            ],
+            "normalized_point_margin": [
+              -0.010266999999999998,
+              0.043879
+            ],
+            "normalized_cp_margin": [
+              0.0,
+              0.049805
+            ],
+            "normalized_wilson_margin": [
+              0.0,
+              0.04944299999999999
+            ]
+          },
+          "positive_cp_boundary_original": 25,
+          "positive_cp_boundary_residualized": 50
+        }
+      }
+    },
+    {
+      "domain": "2-SAT",
+      "source_original": "/scratch/c00590656/loni/Group_Evaluation/No_Metrics/github_repo/no-metrics-paper/SAT_Group_Evaluation/analysis/open_source_LLM_2SAT_analysis/rmc_paper_open_vendor_case_b_by_N.csv",
+      "source_residualized": "/scratch/c00590656/loni/Group_Evaluation/No_Metrics/github_repo/no-metrics-paper/SAT_Group_Evaluation/analysis/open_source_LLM_2SAT_analysis/rmc_paper_open_vendor_case_c_by_N.csv",
+      "alignment_key": [
+        "domain",
+        "model/configuration",
+        "N"
+      ],
+      "excluded_N_to_match_figure_1": [
+        20
+      ],
+      "matched_source_rows": 66,
+      "plotted_rows": 60,
+      "unmatched_original_rows": [],
+      "unmatched_residualized_rows": [],
+      "missing_unchanged_fields": [
+        {
+          "model_config": "QwQ-32B__cnf_qwq_32b_cases_prompt_interleave_zero_shot_desc_allN_3_5_8_10_15_20_25_30_40_50_60_thinking",
+          "N": 60,
+          "column": "F1_SAT",
+          "original": "",
+          "residualized": ""
+        }
+      ],
+      "changed_prediction_fields": [],
+      "models": {
+        "Qwen3-14B": {
+          "model_config": "Qwen3-14B__cnf_qwen3_14b_cases_prompt_interleave_zero_shot_desc_allN_3_5_8_10_15_20_25_30_40_50_60_thinking",
+          "N": [
+            3,
+            5,
+            8,
+            10,
+            15,
+            25,
+            30,
+            40,
+            50,
+            60
+          ],
+          "delta_ranges": {
+            "shortcut_ceiling": [
+              -0.15996503496503495,
+              0.001549586776859485
+            ],
+            "normalized_point_margin": [
+              -0.0006320000000000769,
+              0.165973
+            ],
+            "normalized_cp_margin": [
+              -0.0008230000000000182,
+              0.086659
+            ],
+            "normalized_wilson_margin": [
+              -0.0008179999999999854,
+              0.090683
+            ]
+          },
+          "positive_cp_boundary_original": 20,
+          "positive_cp_boundary_residualized": 60
+        },
+        "Qwen3-32B": {
+          "model_config": "Qwen3-32B__cnf_qwen3_32b_cases_prompt_interleave_zero_shot_desc_allN_3_5_8_10_15_20_25_30_40_50_60_thinking",
+          "N": [
+            3,
+            5,
+            8,
+            10,
+            15,
+            25,
+            30,
+            40,
+            50,
+            60
+          ],
+          "delta_ranges": {
+            "shortcut_ceiling": [
+              -0.17965815176558975,
+              0.007794891059353867
+            ],
+            "normalized_point_margin": [
+              -0.0008960000000000079,
+              0.033405
+            ],
+            "normalized_cp_margin": [
+              -0.001794999999999991,
+              0.02023400000000003
+            ],
+            "normalized_wilson_margin": [
+              -0.0017880000000000118,
+              0.020096000000000003
+            ]
+          },
+          "positive_cp_boundary_original": 15,
+          "positive_cp_boundary_residualized": 20
+        },
+        "QwQ-32B": {
+          "model_config": "QwQ-32B__cnf_qwq_32b_cases_prompt_interleave_zero_shot_desc_allN_3_5_8_10_15_20_25_30_40_50_60_thinking",
+          "N": [
+            3,
+            5,
+            8,
+            10,
+            15,
+            25,
+            30,
+            40,
+            50,
+            60
+          ],
+          "delta_ranges": {
+            "shortcut_ceiling": [
+              -0.16758494031221305,
+              -0.00619834710743801
+            ],
+            "normalized_point_margin": [
+              0.0,
+              0.03479
+            ],
+            "normalized_cp_margin": [
+              0.0,
+              0.024522000000000044
+            ],
+            "normalized_wilson_margin": [
+              0.0,
+              0.02432099999999998
+            ]
+          },
+          "positive_cp_boundary_original": 15,
+          "positive_cp_boundary_residualized": 20
+        },
+        "gpt-oss-20b": {
+          "model_config": "gpt-oss-20b__cnf_gpt_oss_20b_cases_prompt_interleave_zero_shot_desc_allN_3_5_8_10_15_20_25_30_40_50_60_thinking",
+          "N": [
+            3,
+            5,
+            8,
+            10,
+            15,
+            25,
+            30,
+            40,
+            50,
+            60
+          ],
+          "delta_ranges": {
+            "shortcut_ceiling": [
+              -0.21332644628099168,
+              0.009986225895316836
+            ],
+            "normalized_point_margin": [
+              -0.0020040000000000058,
+              0.17055400000000004
+            ],
+            "normalized_cp_margin": [
+              -0.005171000000000037,
+              0.089736
+            ],
+            "normalized_wilson_margin": [
+              -0.005041999999999991,
+              0.106104
+            ]
+          },
+          "positive_cp_boundary_original": 20,
+          "positive_cp_boundary_residualized": 25
+        },
+        "Nemotron-H-47B": {
+          "model_config": "Nemotron-H-47B-Reasoning-128K__cnf_nemotron_h_47b_reasoning_128k_cases_prompt_interleave_zero_shot_desc_allN_3_5_8_10_15_20_25_30_40_50_60_thinking_reasoning_on",
+          "N": [
+            3,
+            5,
+            8,
+            10,
+            15,
+            25,
+            30,
+            40,
+            50,
+            60
+          ],
+          "delta_ranges": {
+            "shortcut_ceiling": [
+              -0.11936071949440932,
+              -0.030048769940418996
+            ],
+            "normalized_point_margin": [
+              0.0,
+              0.007135
+            ],
+            "normalized_cp_margin": [
+              0.0,
+              0.0
+            ],
+            "normalized_wilson_margin": [
+              0.0,
+              0.0
+            ]
+          },
+          "positive_cp_boundary_original": null,
+          "positive_cp_boundary_residualized": null
+        },
+        "Llama-Nemotron-49B": {
+          "model_config": "Llama-3_3-Nemotron-Super-49B-v1_5__cnf_llama_nemotron_super_49b_v15_cases_prompt_interleave_zero_shot_desc_allN_3_5_8_10_15_20_25_30_40_50_60_thinking_reasoning_on",
+          "N": [
+            3,
+            5,
+            8,
+            10,
+            15,
+            25,
+            30,
+            40,
+            50,
+            60
+          ],
+          "delta_ranges": {
+            "shortcut_ceiling": [
+              -0.1864669421487603,
+              0.06327479338842976
+            ],
+            "normalized_point_margin": [
+              -0.00015900000000002024,
+              0.16950199999999999
+            ],
+            "normalized_cp_margin": [
+              -0.020226999999999995,
+              0.091209
+            ],
+            "normalized_wilson_margin": [
+              -0.019538999999999973,
+              0.117501
+            ]
+          },
+          "positive_cp_boundary_original": 15,
+          "positive_cp_boundary_residualized": 25
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+# Python 3.10+ ; tested with the versions below
+pycosat>=0.6.6          # CDCL check of SAT assignments (python-sat is used instead if installed)
+matplotlib>=3.8         # figures
+numpy>=1.26

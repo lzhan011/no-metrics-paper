@@ -1,0 +1,2 @@
+domain,group_concept_applicable,interpretation,max_pairs_per_group_maximum,min_pairs_per_group_maximum,num_primary_slices,num_slices_where_threshold_10_is_structurally_possible
+2-SAT,True,Natural generator group; up to 11 matched SAT/UNSAT pairs.,11,11,72,72

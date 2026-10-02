@@ -1,0 +1,74 @@
+{
+  "predictions_3sat_commercial": {
+    "files": 4330,
+    "bytes": 54876756
+  },
+  "predictions_2sat_Llama_3_3_Nemotron_Super_49B_v1_5": {
+    "files": 1,
+    "bytes": 6392500
+  },
+  "predictions_2sat_Nemotron_H_47B_Reasoning_128K": {
+    "files": 1,
+    "bytes": 7226824
+  },
+  "predictions_2sat_gpt_oss_20b": {
+    "files": 2,
+    "bytes": 11112346
+  },
+  "predictions_2sat_Qwen3_14B": {
+    "files": 2,
+    "bytes": 29500058
+  },
+  "predictions_2sat_Qwen3_32B": {
+    "files": 2,
+    "bytes": 27009657
+  },
+  "predictions_2sat_QwQ_32B": {
+    "files": 2,
+    "bytes": 47896130
+  },
+  "predictions_gc_llama_nemotron_super_49b_v15_thinking": {
+    "files": 1,
+    "bytes": 6080181
+  },
+  "predictions_gc_llama_nemotron_super_49b_v15_thinking_reasoning_on": {
+    "files": 1,
+    "bytes": 4976143
+  },
+  "predictions_gc_nemotron_h_47b_reasoning_128k_thinking": {
+    "files": 1,
+    "bytes": 779987
+  },
+  "predictions_gc_nemotron_h_47b_reasoning_128k_thinking_reasoning_o": {
+    "files": 1,
+    "bytes": 12377767
+  },
+  "predictions_gc_gpt_oss_20b_thinking": {
+    "files": 1,
+    "bytes": 9166898
+  },
+  "predictions_gc_qwen3_14b_thinking": {
+    "files": 1,
+    "bytes": 24099642
+  },
+  "predictions_gc_qwen3_32b_thinking": {
+    "files": 1,
+    "bytes": 14688439
+  },
+  "predictions_gc_qwq_32b_thinking": {
+    "files": 1,
+    "bytes": 18473881
+  },
+  "dataset_3sat_subset": {
+    "files": 1540,
+    "bytes": 207223
+  },
+  "dataset_2sat_subset": {
+    "files": 20685,
+    "bytes": 1261380
+  },
+  "dataset_gc_subset": {
+    "files": 84706,
+    "bytes": 8369427
+  }
+}

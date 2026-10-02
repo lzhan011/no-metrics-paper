@@ -1,0 +1,1046 @@
+
+\documentclass[acmsmall,screen,review,anonymous]{acmart}
+\setcopyright{none}
+\settopmatter{printacmref=false,printccs=false,printfolios=true}
+\setlength{\headheight}{19pt}
+
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{pdflscape}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\input{no-metrics-macros}
+
+\providecommand{\ADR}{\mathrm{ADR}}
+\providecommand{\ADRw}{\mathrm{ADR}^{+w}}
+\providecommand{\ADRa}{\mathrm{ADR}^{+a}}
+\providecommand{\SepCP}{\underline{s}^{\mathrm{CP}}}
+\providecommand{\SepWilson}{\underline{s}^{\mathrm{W}}}
+\providecommand{\SepCPM}{\underline{s}^{\mathrm{CP}}_{\mathrm{M}}}
+\providecommand{\MarginZero}{\mathcal{M}_{0}}
+\providecommand{\MarginShortcut}{\mathcal{M}_{\mathrm{sc}}}
+
+\renewcommand{\thesection}{S\arabic{section}}
+\renewcommand{\thesubsection}{S\arabic{section}.\arabic{subsection}}
+
+\begin{document}
+
+\title{Supplementary Material for Correct Predictions, Wrong Reasons: On the
+Limits of Metrics for Measuring Reasoning Ability}
+
+\author{Anonymous Author(s)}
+\affiliation{%
+  \institution{Anonymous Institution}
+  \country{Anonymous}
+}
+
+\begin{abstract}
+This supplementary material documents source separation, formulas,
+secondary-analysis protocols, complete constraint tables, robustness
+summaries, and architecture-level instantiations used in the main paper.
+The matched and shortcut-account analyses use values printed to three
+decimals in frozen source exports; the group analysis uses full-precision raw
+prediction records.
+The material deliberately treats conventional, matched, confidence-bounded,
+and shortcut-adjusted quantities as observable behavioral criteria rather
+than as direct measures of a latent reasoning mechanism.
+\end{abstract}
+
+\keywords{reasoning evaluation, metric validity, matched evaluation, witnesses, shortcut learning}
+
+\maketitle
+
+\paragraph{Organization.}
+Section~S1 documents provenance and version separation. Section~S2 defines
+the secondary analyses, including the full-precision group outputs.
+Sections~S3--S5 report aggregate results, sensitivity analyses, and complete
+constraint tables. Section~S6 provides architecture-level instantiations of
+the main argument, and Section~S7 records reproduction requirements and
+remaining evidence boundaries.
+
+\section{Provenance, Versioning, and Claim Discipline}
+\label{sec:supp-provenance}
+
+The analysis uses two frozen constraint-evaluation archives and a separate
+full-precision group analysis. We refer to the frozen sources as the
+\emph{matched-separability archive} and the \emph{shortcut-margin archive}.
+The matched-separability
+archive is the sole source for row-level metric, witness, confidence-bound,
+and pair-rematching analyses. The shortcut-margin archive is used only for
+its ideal-floor versus residual-shortcut-ceiling boundary analysis and its
+point-estimate versus confidence-bound examples.
+
+The group analysis reads current raw prediction records separately for
+3-SAT, 2-SAT, and graph coloring. A single domain-neutral implementation then
+computes equal-group, equal-pair, nonlinear, variance, and repeated-success
+summaries. These outputs are not numerically merged with rows from either
+frozen archive.
+
+This separation is necessary because some overlapping narrative rows differ
+slightly across the two archives, consistent with reruns, parser changes, or
+versioned exports. We do not average or selectively reconcile those values.
+A submission artifact should replace the source-export identifiers in its
+manifest with immutable repository commit identifiers and include the
+full-precision per-instance predictions.
+
+The supplied constraint tables contain \(19\) 3-SAT rows, \(59\) 2-SAT rows,
+and \(45\) graph-coloring rows, for \(123\) model--size observations. The
+group analysis contains \(19\), \(66\), and \(45\) model--size slices for the
+same domains, respectively, for \(130\) slices in total.
+
+\section{Secondary-Analysis Definitions}
+\label{sec:supp-definitions}
+
+\subsection{Witness Reference and Two-Sided Separability}
+
+For SAT, the witness reference is \(\ADRw\): a positive response receives
+credit only when the emitted assignment satisfies the formula. For graph
+coloring, the analogous quantity is denoted \(\ADRa\): the proposed coloring
+must be valid. In the frozen matched-separability table, both appear in the
+same source column; this supplement writes the task-appropriate symbol
+\(W\).
+
+For each matched group \(G\), let \(\hat{\theta}_{+}(G)\) and
+\(\hat{\theta}_{-}(G)\) be positive- and negative-arm recall. The point
+two-sided separability is
+\[
+\hat{s}_G=\hat{\theta}_{+}(G)\hat{\theta}_{-}(G).
+\]
+The source archive reports the group-averaged point estimate together with a
+factorized Clopper--Pearson lower bound \(L_{\mathrm{CP}}\) and Wilson lower
+bound \(L_{\mathrm{W}}\). Because
+\(\hat{s}_G=\mathrm{G\mbox{-}mean}^2\), the point statistic induces the same
+classifier ordering as G-mean. The contribution of the source protocol is
+the matched-group and confidence construction, not a new scalar ordering.
+
+\subsection{Strict Ordering Discordance}
+
+Within each task and problem size, consider model pairs for which both a
+metric \(M\) and \(W\) differ at the reported precision. We compute
+\[
+D_M
+=
+\frac{
+\sum_N\sum_{a<b}
+\mathbf{1}\!\left[
+(M_{a,N}-M_{b,N})(W_{a,N}-W_{b,N})<0
+\right]
+}{
+\sum_N\sum_{a<b}
+\mathbf{1}\!\left[
+M_{a,N}\neq M_{b,N}\land W_{a,N}\neq W_{b,N}
+\right]
+}.
+\]
+No hidden precision is used to break ties. The statistic measures agreement
+with a stronger observable reference; it does not assume that \(W\) is a
+complete measure of reasoning.
+
+\subsection{Metric-Level Gap}
+
+For each row and metric \(M\), we record whether \(M>W\), \(M=W\), or \(M<W\)
+at source precision and report the mean difference \(M-W\). The scales have
+different operational meanings, so the difference is descriptive rather
+than an estimate of ``overstatement'' in a common latent unit.
+
+\subsection{Pair-Rematching Sensitivity}
+
+The source tables include the original pairing, a maximum-rematching branch,
+and a minimum-rematching branch. We compute
+\[
+\Delta_{\mathrm{match}}
+=
+\ADR_{\max}-\ADR_{\min}.
+\]
+This quantity changes only the matching rule applied to a fixed set of
+predictions.
+
+\subsection{Confidence and Boundary Sensitivity}
+
+We summarize
+\[
+\Delta_{\mathrm{CI}}
+=
+|L_{\mathrm{CP}}-L_{\mathrm{W}}|
+\]
+for every constraint row. Threshold-parametric prefix boundaries are read as
+\[
+N^*(\tau)=
+\max\left\{
+N:
+L_{\mathrm{CP}}(n)\ge\tau
+\text{ for every tested }n\le N
+\right\},
+\]
+subject to the source archive's prefix convention.
+
+The shortcut-margin archive additionally defines an ideal floor
+\(C_0=0.25\) and a measured residual shortcut ceiling. Its pre-registered
+residual feature set is
+\[
+\mathcal{F}_{\mathrm{CB}}
+=
+\{
+\texttt{mean\_clause\_len},
+\texttt{min\_clause\_len},
+\texttt{max\_clause\_len},
+\texttt{pos\_ratio},
+\texttt{var\_coverage}
+\}.
+\]
+For each group, the archive takes the maximum two-sample KS distance over
+these one-dimensional features, subtracts the \(0.95\) quantile of a
+within-group label-permutation reference computed from \(200\) permutations,
+and truncates at zero. Calling the resulting estimate
+\(\hat d_{\mathrm{short}}\), the ceiling is
+\[
+\widehat C_{\mathrm{sc}}
+=
+\left(\frac{1+\hat d_{\mathrm{short}}}{2}\right)^2
+\ge C_0.
+\]
+The archive's reported margin uses its own pooled factorized lower bound
+\(\SepCPM\):
+\[
+\MarginZero=\SepCPM-C_0,
+\qquad
+\MarginShortcut=\SepCPM-\widehat C_{\mathrm{sc}}.
+\]
+We use these reported boundaries only as a design-sensitivity analysis and do
+not numerically merge \(\SepCPM\) with the matched-separability archive's
+group-averaged lower bound. These margins do not identify the internal
+mechanism.
+
+\subsection{Group Aggregation and Repeated-Success Outputs}
+\label{sec:supp-group-definitions}
+
+Let \(\mathcal{G}_{c}\) contain the groups with at least one complete matched
+pair. For each group \(g\), let \(n_g\) be the number of complete pairs,
+\(S_g\) the number whose two labels are both correct, and
+\(a_g=S_g/n_g\). The equal-group and equal-pair summaries are
+\[
+\mathrm{GADR}
+=\frac{1}{|\mathcal{G}_{c}|}\sum_{g\in\mathcal{G}_{c}}a_g,
+\qquad
+\mathrm{ADR}
+=\frac{\sum_g S_g}{\sum_g n_g}.
+\]
+For \(v_g=a_g(1-a_g)\) and \(\lambda\ge0\), the analysis also exports
+\[
+\mathrm{SGADR}_{\lambda}
+=\frac{1}{|\mathcal{G}_{c}|}
+\sum_{g\in\mathcal{G}_{c}}(a_g-\lambda v_g),
+\qquad
+\mathrm{SGADR}_{\star,\lambda}
+=\mathrm{ADR}-\lambda\,\mathrm{ADR}(1-\mathrm{ADR}).
+\]
+At \(\lambda=1\), these reduce to the macro-average of \(a_g^2\) and
+\(\mathrm{ADR}^2\), respectively. We additionally export between-group
+variance and
+\[
+A_{\ge k}
+=\frac{1}{|\mathcal{G}_{c}|}
+\sum_{g\in\mathcal{G}_{c}}\mathbf{1}[S_g\ge k],
+\qquad k=1,\ldots,10.
+\]
+
+The output bundle keeps the three domains separate and includes overall,
+model--size, per-group, lambda-sweep, completion, and applicability records.
+The primary files contain \(19\), \(66\), and \(45\) model--size rows for
+3-SAT, 2-SAT, and graph coloring. The 3-SAT and graph-coloring recomputations
+match their archived summaries. For 2-SAT, the current predictions differ
+from the older export in \(57\) cells across four models. The domain-neutral
+implementation and the repository's original 2-SAT implementation agree on
+the current inputs, so the supplement retains the older differences as a
+versioning audit and reports the current-input values.
+
+\section{Aggregate Secondary Results}
+\label{sec:supp-aggregate}
+
+
+\begin{table*}[t]
+\centering
+\caption{Metric level relative to the positive-side witness reference. Counts are computed row by row at source precision.}
+\label{tab:supp-levels}
+\renewcommand{\arraystretch}{1.06}
+\begin{tabular}{llrrrrr}
+\toprule
+Domain & Metric & Rows & $M>W$ & $M=W$ & $M<W$ & Mean $(M-W)$\\
+\midrule
+3-SAT & Acc & 19 & 18 & 1 & 0 & 0.322 \\
+3-SAT & ADR & 19 & 15 & 4 & 0 & 0.077 \\
+3-SAT & $\hat{s}$ & 19 & 15 & 2 & 2 & 0.079 \\
+3-SAT & $L_{\mathrm{CP}}$ & 19 & 10 & 0 & 9 & -0.010 \\
+3-SAT & G-mean & 19 & 18 & 1 & 0 & 0.234 \\
+3-SAT & BA & 19 & 18 & 1 & 0 & 0.323 \\
+3-SAT & MCC & 19 & 14 & 2 & 3 & 0.087 \\
+\midrule
+2-SAT & Acc & 59 & 55 & 4 & 0 & 0.319 \\
+2-SAT & ADR & 59 & 47 & 12 & 0 & 0.057 \\
+2-SAT & $\hat{s}$ & 59 & 47 & 12 & 0 & 0.057 \\
+2-SAT & $L_{\mathrm{CP}}$ & 59 & 32 & 1 & 26 & 0.015 \\
+2-SAT & G-mean & 59 & 54 & 5 & 0 & 0.205 \\
+2-SAT & BA & 59 & 55 & 4 & 0 & 0.322 \\
+2-SAT & MCC & 59 & 43 & 9 & 7 & 0.069 \\
+\midrule
+Graph coloring & Acc & 45 & 45 & 0 & 0 & 0.490 \\
+Graph coloring & ADR & 45 & 40 & 5 & 0 & 0.155 \\
+Graph coloring & $\hat{s}$ & 45 & 41 & 2 & 2 & 0.159 \\
+Graph coloring & $L_{\mathrm{CP}}$ & 45 & 39 & 2 & 4 & 0.114 \\
+Graph coloring & G-mean & 45 & 43 & 2 & 0 & 0.359 \\
+Graph coloring & BA & 45 & 45 & 0 & 0 & 0.488 \\
+Graph coloring & MCC & 43 & 35 & 2 & 6 & 0.134 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\begin{table*}[t]
+\centering
+\caption{Strict pairwise model-ordering discordance with the witness reference. Each cell is discordant/strict-comparable pairs; source-precision ties are excluded.}
+\label{tab:supp-rank-discordance}
+\renewcommand{\arraystretch}{1.08}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrrrrrr}
+\toprule
+Domain & Acc & F1$_+$ & F1$_-$ & ADR & $\hat{s}$ & $L_{\mathrm{CP}}$ & G-mean & BA & MCC \\
+\midrule
+3-SAT & 3/16 & 4/16 & 2/16 & 4/16 & 4/16 & 3/16 & 4/16 & 3/16 & 3/16 \\
+2-SAT & 10/115 & 25/116 & 10/111 & 11/116 & 12/116 & 9/116 & 13/116 & 12/116 & 14/116 \\
+Graph coloring & 25/62 & 34/62 & 21/63 & 24/62 & 26/63 & 27/63 & 30/63 & 24/62 & 25/62 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table*}
+
+\begin{table}[t]
+\centering
+\caption{Sensitivity to Clopper--Pearson versus Wilson lower bounds.}
+\label{tab:supp-interval}
+\renewcommand{\arraystretch}{1.08}
+\begin{tabular}{lrrrr}
+\toprule
+Domain & Mean abs.\ diff. & Median & 95th pct. & Maximum\\
+\midrule
+3-SAT & 0.0043 & 0.0050 & 0.0073 & 0.010 \\
+2-SAT & 0.0050 & 0.0060 & 0.0100 & 0.011 \\
+Graph coloring & 0.0040 & 0.0030 & 0.0100 & 0.011 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering
+\caption{Pair-rematching sensitivity, $\Delta_{\mathrm{match}}=\mathrm{ADR}_{\max}-\mathrm{ADR}_{\min}$.}
+\label{tab:supp-pair-summary}
+\renewcommand{\arraystretch}{1.08}
+\begin{tabular}{lrrrrr}
+\toprule
+Domain & Rows & Mean & Median & Maximum & Nonzero rows\\
+\midrule
+3-SAT & 19 & 0.026 & 0.021 & 0.080 & 78.9\% \\
+2-SAT & 59 & 0.023 & 0.000 & 0.182 & 42.4\% \\
+Graph coloring & 45 & 0.072 & 0.019 & 0.364 & 73.3\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table*}[t]
+\centering
+\caption{Largest pair-rematching spreads in each domain.}
+\label{tab:supp-pair-top}
+\renewcommand{\arraystretch}{1.06}
+\begin{tabular}{llrrrrr}
+\toprule
+Domain & Model & $N$ & ADR$_{\mathrm{pair}}$ & ADR$_{\max}$ & ADR$_{\min}$ & $\Delta_{\mathrm{match}}$\\
+\midrule
+3-SAT & DeepSeek-Reasoner & 50 & 0.090 & 0.110 & 0.030 & 0.080 \\
+3-SAT & Opus 4.7 (med. think) & 50 & 0.200 & 0.220 & 0.140 & 0.080 \\
+3-SAT & Opus 4.7 (med. think) & 60 & 0.156 & 0.169 & 0.117 & 0.052 \\
+3-SAT & DeepSeek-Reasoner & 60 & 0.086 & 0.086 & 0.038 & 0.048 \\
+3-SAT & DeepSeek-Reasoner & 25 & 0.289 & 0.299 & 0.258 & 0.041 \\
+\midrule
+2-SAT & gpt-oss-20b (reason) & 25 & 0.227 & 0.364 & 0.182 & 0.182 \\
+2-SAT & Qwen3-14B (think) & 50 & 0.154 & 0.231 & 0.063 & 0.168 \\
+2-SAT & Qwen3-14B (think) & 40 & 0.203 & 0.238 & 0.077 & 0.161 \\
+2-SAT & Qwen3-32B (think) & 50 & 0.143 & 0.185 & 0.042 & 0.143 \\
+2-SAT & gpt-oss-20b (reason) & 10 & 0.727 & 0.818 & 0.682 & 0.136 \\
+\midrule
+Graph coloring & Llama-Nemo-49B (r-on) & 60 & 0.000 & 0.364 & 0.000 & 0.364 \\
+Graph coloring & Llama-Nemo-49B (r-on) & 50 & 0.282 & 0.473 & 0.191 & 0.282 \\
+Graph coloring & QwQ-32B (think) & 40 & 0.309 & 0.436 & 0.155 & 0.281 \\
+Graph coloring & Llama-Nemo-49B (r-on) & 40 & 0.136 & 0.273 & 0.000 & 0.273 \\
+Graph coloring & Qwen3-32B (think) & 20 & 0.278 & 0.389 & 0.141 & 0.248 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\subsection{Selected Strict Ordering Reversals}
+
+\begin{table*}[t]
+\centering
+\caption{Representative model-order reversals relative to the witness
+reference. Arrows indicate the ordering induced by the displayed metric and
+by \(W\).}
+\label{tab:supp-reversal-examples}
+\renewcommand{\arraystretch}{1.08}
+\begin{tabularx}{\textwidth}{p{0.16\textwidth}p{0.30\textwidth}p{0.25\textwidth}X}
+\toprule
+Domain/size & Models & Output-metric ordering & Witness ordering\\
+\midrule
+3-SAT, \(N=25\)
+& Opus 4.7 vs.\ GPT-5
+& Acc \(0.935>0.864\); ADR \(0.759>0.736\);
+\(\hat{s}\;0.783>0.732\)
+& \(W_{\mathrm{Opus}}=0.655 <
+W_{\mathrm{GPT}}=0.673\)\\
+Graph coloring, \(N=10\)
+& Llama-Nemo-49B vs.\ GPT-OSS-20B
+& Acc \(0.909>0.886\);
+\(L_{\mathrm{CP}}\;0.751>0.710\)
+& \(W_{\mathrm{Llama}}=0.227 <
+W_{\mathrm{GPT\mbox{-}OSS}}=0.818\)\\
+Graph coloring, \(N=8\)
+& Llama-Nemo-49B vs.\ Qwen3-32B
+& Acc \(0.932>0.824\); ADR \(0.864>0.647\)
+& \(W_{\mathrm{Llama}}=0.136 <
+W_{\mathrm{Qwen}}=0.482\)\\
+2-SAT, \(N=30\)
+& Qwen3-32B vs.\ Llama-Nemotron-Super-49B (reason)
+& ADR \(0.157<0.250\); \(\hat{s}\;0.156<0.182\)
+& \(W_{\mathrm{Qwen}}=0.083 >
+W_{\mathrm{Llama}}=0.000\)\\
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+\section{Threshold and Shortcut-Account Sensitivity}
+\label{sec:supp-boundaries}
+
+\subsection{Threshold-Parametric Matched-Separability Boundaries}
+
+\begin{table}[t]
+\centering
+\caption{3-SAT prefix boundaries \(N^*(\tau)\) from the
+matched-separability archive.}
+\label{tab:supp-threshold-3sat}
+\renewcommand{\arraystretch}{1.08}
+\begin{tabular}{lrrrr}
+\toprule
+Model & \(N^*(0.50)\) & \(N^*(0.25)\) & \(N^*(0.10)\) & \(N^*(0.05)\)\\
+\midrule
+GPT-5 & 25 & 30 & 40 & 60\\
+Opus 4.7 medium-thinking & 25 & 25 & 50 & 60\\
+DeepSeek-Reasoner & 10 & 10 & 25 & 25\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering
+\caption{2-SAT prefix boundaries \(N^*(\tau)\) from the
+matched-separability archive.}
+\label{tab:supp-threshold-2sat}
+\renewcommand{\arraystretch}{1.08}
+\begin{tabular}{lrrrr}
+\toprule
+Model & \(N^*(0.50)\) & \(N^*(0.25)\) & \(N^*(0.10)\) & \(N^*(0.05)\)\\
+\midrule
+Qwen3-14B thinking & 15 & 20 & 50 & 50\\
+Qwen3-32B thinking & 10 & 15 & 20 & 30\\
+QwQ-32B thinking & 10 & 15 & 20 & 25\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Ideal-Floor Versus Residual-Shortcut Boundaries}
+
+\begin{table*}[t]
+\centering
+\caption{Positive-margin boundaries from the shortcut-margin archive.
+\(\MarginZero\) uses the ideal \(0.25\) floor; \(\MarginShortcut\) charges the measured
+residual structural shortcut ceiling. A dash means no positive boundary on
+the tested grid.}
+\label{tab:supp-rmc-boundaries}
+\renewcommand{\arraystretch}{1.08}
+\begin{tabular}{llrrr}
+\toprule
+Task & Model & \(\MarginZero\) boundary & \(\MarginShortcut\) boundary & Shift\\
+\midrule
+3-SAT & GPT-5 & 30 & 25 & \(-5\)\\
+3-SAT & Opus 4.7 medium-thinking & 25 & 25 & \(0\)\\
+3-SAT & DeepSeek-Reasoner & 10 & 10 & \(0\)\\
+\midrule
+2-SAT & Qwen3-32B thinking & 15 & 10 & \(-5\)\\
+2-SAT & gpt-oss-20b reasoning & 20 & 15 & \(-5\)\\
+2-SAT & Nemotron-H-47B (r-on) & -- & -- & --\\
+2-SAT & LN-Super-49B (r-on) & 10 & 8 & \(-2\)\\
+\midrule
+Graph coloring & Qwen3-32B thinking & 10 & 8 & \(-2\)\\
+Graph coloring & gpt-oss-20b reasoning & 10 & 10 & \(0\)\\
+Graph coloring & Nemotron-H-47B (r-on) & 15 & 10 & \(-5\)\\
+Graph coloring & LN-Super-49B (r-on) & 10 & 10 & \(0\)\\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\subsection{Point Estimate Versus Confidence Requirement}
+
+\begin{table}[t]
+\centering
+\caption{Examples in which an ideal-floor point margin is positive but its
+Clopper--Pearson lower-bound margin is negative.}
+\label{tab:supp-point-cp}
+\renewcommand{\arraystretch}{1.08}
+\begin{tabular}{llrr}
+\toprule
+Task & Model/size & Point \(\MarginZero\) & CP \(\MarginZero\)\\
+\midrule
+3-SAT & GPT-5, \(N=40\) & \(+0.053\) & \(-0.040\)\\
+2-SAT & gpt-oss-20b, \(N=25\) & \(+0.156\) & \(-0.045\)\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Complete Constraint Tables}
+\label{sec:supp-complete}
+
+
+\begin{landscape}
+\scriptsize
+\setlength{\tabcolsep}{2.7pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{longtable}{p{4.1cm}r*{13}{r}}
+\caption{Complete 3-SAT model--size table from the matched-separability archive. $W$ is the positive-side witness-aware rate: $\mathrm{ADR}^{+w}$ for SAT and $\mathrm{ADR}^{+a}$ for graph coloring. Values are reproduced at the three-decimal precision of the source export.}\label{tab:supp-full-3sat}\\
+\toprule
+Model & $N$ & Acc & F1$_+$ & F1$_-$ & ADR & $W$ & $\hat{s}$ & $L_{\mathrm{CP}}$ & $L_{\mathrm{W}}$ & BA & MCC & ADR$_{\mathrm{pair}}$ & ADR$_{\max}$ & ADR$_{\min}$ \\
+\midrule
+\endfirsthead
+\multicolumn{15}{c}{\tablename\ \thetable\ continued}\\
+\toprule
+Model & $N$ & Acc & F1$_+$ & F1$_-$ & ADR & $W$ & $\hat{s}$ & $L_{\mathrm{CP}}$ & $L_{\mathrm{W}}$ & BA & MCC & ADR$_{\mathrm{pair}}$ & ADR$_{\max}$ & ADR$_{\min}$ \\
+\midrule
+\endhead
+\midrule \multicolumn{15}{r}{Continued on next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+GPT-5 & 5 & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 & 0.929 & 0.927 & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 \\
+GPT-5 & 10 & 0.990 & 0.991 & 0.989 & 0.989 & 0.989 & 0.981 & 0.897 & 0.897 & 0.991 & 0.980 & 0.989 & 0.989 & 0.989 \\
+GPT-5 & 25 & 0.864 & 0.847 & 0.877 & 0.736 & 0.673 & 0.732 & 0.612 & 0.615 & 0.864 & 0.745 & 0.736 & 0.755 & 0.727 \\
+GPT-5 & 30 & 0.735 & 0.651 & 0.787 & 0.486 & 0.440 & 0.480 & 0.367 & 0.372 & 0.734 & 0.533 & 0.486 & 0.495 & 0.468 \\
+GPT-5 & 40 & 0.645 & 0.466 & 0.735 & 0.309 & 0.164 & 0.303 & 0.210 & 0.216 & 0.645 & 0.393 & 0.309 & 0.309 & 0.291 \\
+GPT-5 & 50 & 0.573 & 0.288 & 0.695 & 0.173 & 0.064 & 0.168 & 0.099 & 0.105 & 0.573 & 0.242 & 0.173 & 0.173 & 0.145 \\
+GPT-5 & 60 & 0.555 & 0.222 & 0.688 & 0.127 & 0.000 & 0.125 & 0.067 & 0.072 & 0.555 & 0.210 & 0.127 & 0.127 & 0.118 \\
+Opus 4.7 (med. think) & 5 & 0.945 & 0.947 & 0.942 & 0.897 & 0.813 & 0.893 & 0.782 & 0.784 & 0.945 & 0.892 & 0.897 & 0.907 & 0.888 \\
+Opus 4.7 (med. think) & 10 & 0.959 & 0.960 & 0.958 & 0.917 & 0.861 & 0.919 & 0.816 & 0.817 & 0.959 & 0.918 & 0.917 & 0.926 & 0.917 \\
+Opus 4.7 (med. think) & 25 & 0.935 & 0.956 & 0.875 & 0.759 & 0.655 & 0.783 & 0.592 & 0.602 & 0.894 & 0.838 & 0.759 & 0.759 & 0.759 \\
+Opus 4.7 (med. think) & 50 & 0.527 & 0.620 & 0.372 & 0.200 & 0.060 & 0.230 & 0.124 & 0.131 & 0.555 & 0.134 & 0.200 & 0.220 & 0.140 \\
+Opus 4.7 (med. think) & 60 & 0.530 & 0.656 & 0.256 & 0.156 & 0.000 & 0.152 & 0.078 & 0.084 & 0.549 & 0.157 & 0.156 & 0.169 & 0.117 \\
+DeepSeek-Reasoner & 5 & 0.986 & 0.986 & 0.987 & 0.973 & 0.973 & 0.973 & 0.892 & 0.892 & 0.986 & 0.973 & 0.973 & 0.973 & 0.973 \\
+DeepSeek-Reasoner & 10 & 0.876 & 0.865 & 0.886 & 0.780 & 0.780 & 0.761 & 0.641 & 0.644 & 0.879 & 0.774 & 0.780 & 0.780 & 0.770 \\
+DeepSeek-Reasoner & 25 & 0.626 & 0.454 & 0.716 & 0.289 & 0.144 & 0.290 & 0.197 & 0.203 & 0.633 & 0.349 & 0.289 & 0.299 & 0.258 \\
+DeepSeek-Reasoner & 30 & 0.515 & 0.154 & 0.660 & 0.073 & 0.010 & 0.082 & 0.036 & 0.041 & 0.519 & 0.075 & 0.073 & 0.073 & 0.052 \\
+DeepSeek-Reasoner & 40 & 0.524 & 0.183 & 0.664 & 0.093 & 0.031 & 0.104 & 0.048 & 0.053 & 0.520 & 0.072 & 0.093 & 0.103 & 0.082 \\
+DeepSeek-Reasoner & 50 & 0.486 & 0.194 & 0.622 & 0.090 & 0.000 & 0.102 & 0.052 & 0.057 & 0.496 & -0.011 & 0.090 & 0.110 & 0.030 \\
+DeepSeek-Reasoner & 60 & 0.509 & 0.160 & 0.653 & 0.086 & 0.010 & 0.086 & 0.039 & 0.044 & 0.513 & 0.049 & 0.086 & 0.086 & 0.038 \\
+\end{longtable}
+\end{landscape}
+
+\begin{landscape}
+\scriptsize
+\setlength{\tabcolsep}{2.7pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{longtable}{p{4.1cm}r*{13}{r}}
+\caption{Complete 2-SAT model--size table from the matched-separability archive. $W$ is the positive-side witness-aware rate: $\mathrm{ADR}^{+w}$ for SAT and $\mathrm{ADR}^{+a}$ for graph coloring. Values are reproduced at the three-decimal precision of the source export.}\label{tab:supp-full-2sat}\\
+\toprule
+Model & $N$ & Acc & F1$_+$ & F1$_-$ & ADR & $W$ & $\hat{s}$ & $L_{\mathrm{CP}}$ & $L_{\mathrm{W}}$ & BA & MCC & ADR$_{\mathrm{pair}}$ & ADR$_{\max}$ & ADR$_{\min}$ \\
+\midrule
+\endfirsthead
+\multicolumn{15}{c}{\tablename\ \thetable\ continued}\\
+\toprule
+Model & $N$ & Acc & F1$_+$ & F1$_-$ & ADR & $W$ & $\hat{s}$ & $L_{\mathrm{CP}}$ & $L_{\mathrm{W}}$ & BA & MCC & ADR$_{\mathrm{pair}}$ & ADR$_{\max}$ & ADR$_{\min}$ \\
+\midrule
+\endhead
+\midrule \multicolumn{15}{r}{Continued on next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+gpt-oss-20b (reason) & 3 & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 & 0.976 & 0.969 & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 \\
+gpt-oss-20b (reason) & 5 & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 & 0.976 & 0.969 & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 \\
+gpt-oss-20b (reason) & 8 & 0.955 & 0.952 & 0.957 & 0.909 & 0.864 & 0.909 & 0.863 & 0.855 & 0.955 & 0.913 & 0.909 & 0.909 & 0.909 \\
+gpt-oss-20b (reason) & 10 & 0.841 & 0.844 & 0.837 & 0.727 & 0.682 & 0.707 & 0.631 & 0.620 & 0.841 & 0.683 & 0.727 & 0.818 & 0.682 \\
+gpt-oss-20b (reason) & 15 & 0.773 & 0.737 & 0.800 & 0.545 & 0.500 & 0.562 & 0.485 & 0.475 & 0.773 & 0.567 & 0.545 & 0.636 & 0.545 \\
+gpt-oss-20b (reason) & 20 & 0.773 & 0.706 & 0.815 & 0.545 & 0.409 & 0.545 & 0.467 & 0.457 & 0.773 & 0.612 & 0.545 & 0.545 & 0.545 \\
+gpt-oss-20b (reason) & 25 & 0.568 & 0.457 & 0.642 & 0.227 & 0.182 & 0.281 & 0.216 & 0.210 & 0.568 & 0.149 & 0.227 & 0.364 & 0.182 \\
+gpt-oss-20b (reason) & 30 & 0.568 & 0.296 & 0.689 & 0.136 & 0.045 & 0.169 & 0.118 & 0.116 & 0.568 & 0.215 & 0.136 & 0.182 & 0.136 \\
+gpt-oss-20b (reason) & 40 & 0.545 & 0.286 & 0.667 & 0.182 & 0.000 & 0.165 & 0.112 & 0.110 & 0.545 & 0.132 & 0.182 & 0.182 & 0.091 \\
+gpt-oss-20b (reason) & 50 & 0.500 & 0.083 & 0.656 & 0.045 & 0.000 & 0.045 & 0.026 & 0.026 & 0.500 & 0.000 & 0.045 & 0.045 & 0.045 \\
+Qwen3-14B (think) & 3 & 0.990 & 0.990 & 0.990 & 0.981 & 0.981 & 0.981 & 0.950 & 0.943 & 0.990 & 0.981 & 0.981 & 0.981 & 0.981 \\
+Qwen3-14B (think) & 5 & 0.974 & 0.973 & 0.975 & 0.948 & 0.942 & 0.948 & 0.909 & 0.901 & 0.974 & 0.949 & 0.948 & 0.948 & 0.948 \\
+Qwen3-14B (think) & 8 & 0.974 & 0.973 & 0.975 & 0.948 & 0.942 & 0.948 & 0.907 & 0.899 & 0.974 & 0.949 & 0.948 & 0.948 & 0.948 \\
+Qwen3-14B (think) & 10 & 0.942 & 0.938 & 0.945 & 0.883 & 0.877 & 0.883 & 0.833 & 0.824 & 0.942 & 0.889 & 0.883 & 0.883 & 0.883 \\
+Qwen3-14B (think) & 15 & 0.844 & 0.815 & 0.865 & 0.688 & 0.656 & 0.688 & 0.620 & 0.611 & 0.844 & 0.724 & 0.688 & 0.688 & 0.688 \\
+Qwen3-14B (think) & 20 & 0.669 & 0.519 & 0.748 & 0.338 & 0.286 & 0.348 & 0.282 & 0.276 & 0.669 & 0.432 & 0.338 & 0.357 & 0.338 \\
+Qwen3-14B (think) & 25 & 0.604 & 0.371 & 0.711 & 0.214 & 0.156 & 0.230 & 0.179 & 0.175 & 0.604 & 0.309 & 0.214 & 0.234 & 0.208 \\
+Qwen3-14B (think) & 30 & 0.516 & 0.280 & 0.636 & 0.162 & 0.058 & 0.153 & 0.105 & 0.103 & 0.516 & 0.043 & 0.162 & 0.188 & 0.078 \\
+Qwen3-14B (think) & 40 & 0.490 & 0.338 & 0.585 & 0.203 & 0.000 & 0.184 & 0.136 & 0.133 & 0.495 & -0.012 & 0.203 & 0.238 & 0.077 \\
+Qwen3-14B (think) & 50 & 0.479 & 0.313 & 0.580 & 0.154 & 0.000 & 0.163 & 0.118 & 0.115 & 0.479 & -0.048 & 0.154 & 0.231 & 0.063 \\
+Qwen3-32B (think) & 3 & 0.979 & 0.979 & 0.980 & 0.959 & 0.959 & 0.959 & 0.922 & 0.914 & 0.979 & 0.959 & 0.959 & 0.959 & 0.959 \\
+Qwen3-32B (think) & 5 & 0.955 & 0.952 & 0.957 & 0.909 & 0.909 & 0.909 & 0.864 & 0.855 & 0.955 & 0.913 & 0.909 & 0.909 & 0.909 \\
+Qwen3-32B (think) & 8 & 0.926 & 0.920 & 0.931 & 0.851 & 0.843 & 0.851 & 0.798 & 0.790 & 0.926 & 0.861 & 0.851 & 0.851 & 0.851 \\
+Qwen3-32B (think) & 10 & 0.905 & 0.895 & 0.913 & 0.810 & 0.777 & 0.810 & 0.753 & 0.744 & 0.905 & 0.825 & 0.810 & 0.810 & 0.810 \\
+Qwen3-32B (think) & 15 & 0.748 & 0.663 & 0.799 & 0.496 & 0.430 & 0.496 & 0.422 & 0.413 & 0.748 & 0.574 & 0.496 & 0.496 & 0.496 \\
+Qwen3-32B (think) & 20 & 0.624 & 0.397 & 0.727 & 0.248 & 0.207 & 0.248 & 0.189 & 0.185 & 0.624 & 0.376 & 0.248 & 0.248 & 0.248 \\
+Qwen3-32B (think) & 25 & 0.568 & 0.246 & 0.698 & 0.142 & 0.092 & 0.140 & 0.098 & 0.096 & 0.567 & 0.254 & 0.142 & 0.142 & 0.133 \\
+Qwen3-32B (think) & 30 & 0.574 & 0.270 & 0.700 & 0.157 & 0.083 & 0.156 & 0.112 & 0.110 & 0.574 & 0.270 & 0.157 & 0.157 & 0.149 \\
+Qwen3-32B (think) & 40 & 0.525 & 0.173 & 0.667 & 0.099 & 0.000 & 0.096 & 0.067 & 0.066 & 0.525 & 0.094 & 0.099 & 0.099 & 0.083 \\
+Qwen3-32B (think) & 50 & 0.467 & 0.273 & 0.579 & 0.143 & 0.000 & 0.129 & 0.089 & 0.087 & 0.464 & -0.083 & 0.143 & 0.185 & 0.042 \\
+QwQ-32B (think) & 3 & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 & 0.976 & 0.969 & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 \\
+QwQ-32B (think) & 5 & 0.990 & 0.990 & 0.990 & 0.980 & 0.980 & 0.980 & 0.949 & 0.942 & 0.990 & 0.980 & 0.980 & 0.980 & 0.980 \\
+QwQ-32B (think) & 8 & 0.980 & 0.980 & 0.980 & 0.960 & 0.960 & 0.960 & 0.924 & 0.916 & 0.980 & 0.960 & 0.960 & 0.960 & 0.960 \\
+QwQ-32B (think) & 10 & 0.949 & 0.947 & 0.952 & 0.899 & 0.869 & 0.899 & 0.857 & 0.849 & 0.949 & 0.904 & 0.899 & 0.899 & 0.899 \\
+QwQ-32B (think) & 15 & 0.798 & 0.747 & 0.832 & 0.596 & 0.545 & 0.596 & 0.521 & 0.511 & 0.798 & 0.652 & 0.596 & 0.596 & 0.596 \\
+QwQ-32B (think) & 20 & 0.641 & 0.441 & 0.736 & 0.283 & 0.242 & 0.283 & 0.222 & 0.218 & 0.641 & 0.406 & 0.283 & 0.283 & 0.283 \\
+QwQ-32B (think) & 25 & 0.576 & 0.276 & 0.700 & 0.162 & 0.111 & 0.161 & 0.122 & 0.119 & 0.576 & 0.270 & 0.162 & 0.162 & 0.152 \\
+QwQ-32B (think) & 30 & 0.515 & 0.059 & 0.673 & 0.030 & 0.000 & 0.030 & 0.017 & 0.017 & 0.515 & 0.124 & 0.030 & 0.030 & 0.030 \\
+QwQ-32B (think) & 40 & 0.487 & 0.093 & 0.642 & 0.033 & 0.011 & 0.039 & 0.018 & 0.019 & 0.509 & 0.043 & 0.033 & 0.044 & 0.022 \\
+QwQ-32B (think) & 50 & 0.506 & 0.044 & 0.667 & 0.023 & 0.000 & 0.023 & 0.013 & 0.013 & 0.506 & 0.044 & 0.023 & 0.023 & 0.023 \\
+Llama-Nemotron-Super-49B (reason) & 3 & 1.000 & 1.000 & 1.000 & 1.000 & 0.909 & 1.000 & 0.976 & 0.969 & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 \\
+Llama-Nemotron-Super-49B (reason) & 5 & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 & 0.976 & 0.969 & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 \\
+Llama-Nemotron-Super-49B (reason) & 8 & 0.864 & 0.842 & 0.880 & 0.727 & 0.727 & 0.727 & 0.653 & 0.642 & 0.864 & 0.756 & 0.727 & 0.727 & 0.727 \\
+Llama-Nemotron-Super-49B (reason) & 10 & 0.773 & 0.706 & 0.815 & 0.545 & 0.545 & 0.545 & 0.467 & 0.457 & 0.773 & 0.612 & 0.545 & 0.545 & 0.545 \\
+Llama-Nemotron-Super-49B (reason) & 15 & 0.727 & 0.625 & 0.786 & 0.455 & 0.364 & 0.455 & 0.377 & 0.369 & 0.727 & 0.542 & 0.455 & 0.455 & 0.455 \\
+Llama-Nemotron-Super-49B (reason) & 20 & 0.818 & 0.778 & 0.846 & 0.636 & 0.545 & 0.636 & 0.558 & 0.548 & 0.818 & 0.683 & 0.636 & 0.636 & 0.636 \\
+Llama-Nemotron-Super-49B (reason) & 25 & 0.773 & 0.706 & 0.815 & 0.545 & 0.182 & 0.545 & 0.467 & 0.457 & 0.773 & 0.612 & 0.545 & 0.545 & 0.545 \\
+Llama-Nemotron-Super-49B (reason) & 30 & 0.400 & 0.308 & 0.471 & 0.250 & 0.000 & 0.182 & 0.094 & 0.095 & 0.591 & 0.237 & 0.250 & 0.250 & 0.250 \\
+Nemotron-H-47B-Reasoning (reason) & 3 & 0.524 & 0.657 & 0.224 & 0.077 & 0.046 & 0.080 & 0.069 & 0.068 & 0.524 & 0.076 & 0.077 & 0.087 & 0.074 \\
+Nemotron-H-47B-Reasoning (reason) & 5 & 0.510 & 0.668 & 0.066 & 0.023 & 0.004 & 0.027 & 0.019 & 0.019 & 0.510 & 0.062 & 0.023 & 0.031 & 0.021 \\
+Nemotron-H-47B-Reasoning (reason) & 8 & 0.499 & 0.666 & -- & 0.000 & 0.000 & 0.000 & 0.000 & 0.000 & 0.499 & -0.031 & 0.000 & 0.000 & 0.000 \\
+Nemotron-H-47B-Reasoning (reason) & 10 & 0.497 & 0.664 & 0.004 & 0.002 & 0.000 & 0.002 & 0.001 & 0.001 & 0.497 & -0.042 & 0.002 & 0.002 & 0.002 \\
+Nemotron-H-47B-Reasoning (reason) & 15 & 0.513 & 0.668 & 0.087 & 0.027 & 0.000 & 0.030 & 0.024 & 0.024 & 0.513 & 0.070 & 0.027 & 0.031 & 0.025 \\
+Nemotron-H-47B-Reasoning (reason) & 20 & 0.510 & 0.664 & 0.093 & 0.043 & 0.000 & 0.043 & 0.037 & 0.036 & 0.510 & 0.049 & 0.043 & 0.046 & 0.041 \\
+Nemotron-H-47B-Reasoning (reason) & 25 & 0.526 & 0.666 & 0.183 & 0.070 & 0.000 & 0.071 & 0.058 & 0.057 & 0.526 & 0.096 & 0.070 & 0.079 & 0.062 \\
+Nemotron-H-47B-Reasoning (reason) & 30 & 0.503 & 0.665 & 0.034 & 0.015 & 0.000 & 0.017 & 0.012 & 0.012 & 0.503 & 0.024 & 0.015 & 0.017 & 0.015 \\
+Nemotron-H-47B-Reasoning (reason) & 40 & 0.527 & 0.673 & 0.147 & 0.074 & 0.000 & 0.074 & 0.055 & 0.054 & 0.527 & 0.120 & 0.074 & 0.081 & 0.062 \\
+Nemotron-H-47B-Reasoning (reason) & 50 & 0.516 & 0.667 & 0.120 & 0.046 & 0.000 & 0.052 & 0.042 & 0.041 & 0.516 & 0.076 & 0.046 & 0.062 & 0.041 \\
+Nemotron-H-47B-Reasoning (reason) & 60 & 0.537 & 0.674 & 0.206 & 0.105 & 0.000 & 0.107 & 0.085 & 0.083 & 0.535 & 0.125 & 0.105 & 0.119 & 0.093 \\
+\end{longtable}
+\end{landscape}
+
+\begin{landscape}
+\scriptsize
+\setlength{\tabcolsep}{2.7pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{longtable}{p{4.1cm}r*{13}{r}}
+\caption{Complete graph-coloring model--size table from the matched-separability archive. $W$ is the positive-side witness-aware rate: $\mathrm{ADR}^{+w}$ for SAT and $\mathrm{ADR}^{+a}$ for graph coloring. Values are reproduced at the three-decimal precision of the source export.}\label{tab:supp-full-graph}\\
+\toprule
+Model & $N$ & Acc & F1$_+$ & F1$_-$ & ADR & $W$ & $\hat{s}$ & $L_{\mathrm{CP}}$ & $L_{\mathrm{W}}$ & BA & MCC & ADR$_{\mathrm{pair}}$ & ADR$_{\max}$ & ADR$_{\min}$ \\
+\midrule
+\endfirsthead
+\multicolumn{15}{c}{\tablename\ \thetable\ continued}\\
+\toprule
+Model & $N$ & Acc & F1$_+$ & F1$_-$ & ADR & $W$ & $\hat{s}$ & $L_{\mathrm{CP}}$ & $L_{\mathrm{W}}$ & BA & MCC & ADR$_{\mathrm{pair}}$ & ADR$_{\max}$ & ADR$_{\min}$ \\
+\midrule
+\endhead
+\midrule \multicolumn{15}{r}{Continued on next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+GPT-OSS-20B (think) & 8 & 0.953 & 0.952 & 0.955 & 0.905 & 0.857 & 0.909 & 0.852 & 0.843 & 0.955 & 0.911 & 0.905 & 0.905 & 0.905 \\
+GPT-OSS-20B (think) & 10 & 0.886 & 0.878 & 0.894 & 0.818 & 0.818 & 0.781 & 0.710 & 0.700 & 0.886 & 0.780 & 0.818 & 0.818 & 0.773 \\
+GPT-OSS-20B (think) & 15 & 0.545 & 0.286 & 0.667 & 0.182 & 0.136 & 0.165 & 0.130 & 0.127 & 0.545 & 0.132 & 0.182 & 0.182 & 0.136 \\
+GPT-OSS-20B (think) & 20 & 0.659 & 0.462 & 0.750 & 0.316 & 0.316 & 0.313 & 0.242 & 0.236 & 0.650 & 0.424 & 0.322 & 0.322 & 0.322 \\
+GPT-OSS-20B (think) & 30 & 0.528 & -- & 0.691 & 0.000 & 0.000 & 0.000 & 0.000 & 0.000 & 0.500 & -- & 0.000 & 0.000 & 0.000 \\
+GPT-OSS-20B (think) & 40 & 0.571 & 0.118 & 0.717 & 0.071 & 0.000 & 0.062 & 0.036 & 0.036 & 0.531 & 0.187 & 0.062 & 0.062 & 0.062 \\
+GPT-OSS-20B (think) & 50 & 0.440 & 0.222 & 0.562 & 0.182 & 0.000 & 0.149 & 0.098 & 0.096 & 0.481 & -0.053 & 0.182 & 0.182 & 0.000 \\
+GPT-OSS-20B (think) & 60 & 0.550 & 0.308 & 0.667 & 0.111 & 0.000 & 0.180 & 0.120 & 0.117 & 0.550 & 0.140 & 0.111 & 0.222 & 0.111 \\
+Llama-Nemo-49B (r-on) & 8 & 0.932 & 0.927 & 0.936 & 0.864 & 0.136 & 0.864 & 0.802 & 0.792 & 0.932 & 0.872 & 0.864 & 0.864 & 0.864 \\
+Llama-Nemo-49B (r-on) & 10 & 0.909 & 0.900 & 0.917 & 0.818 & 0.227 & 0.818 & 0.751 & 0.740 & 0.909 & 0.832 & 0.818 & 0.818 & 0.818 \\
+Llama-Nemo-49B (r-on) & 15 & 0.545 & 0.231 & 0.677 & 0.136 & 0.091 & 0.124 & 0.092 & 0.090 & 0.545 & 0.158 & 0.136 & 0.136 & 0.091 \\
+Llama-Nemo-49B (r-on) & 20 & 0.545 & 0.167 & 0.688 & 0.091 & 0.045 & 0.091 & 0.063 & 0.062 & 0.545 & 0.218 & 0.091 & 0.091 & 0.091 \\
+Llama-Nemo-49B (r-on) & 30 & 0.545 & 0.444 & 0.615 & 0.182 & 0.000 & 0.264 & 0.209 & 0.205 & 0.545 & 0.098 & 0.182 & 0.364 & 0.182 \\
+Llama-Nemo-49B (r-on) & 40 & 0.364 & 0.364 & 0.364 & 0.136 & 0.000 & 0.132 & 0.087 & 0.085 & 0.364 & -0.273 & 0.136 & 0.273 & 0.000 \\
+Llama-Nemo-49B (r-on) & 50 & 0.632 & 0.682 & 0.562 & 0.312 & 0.000 & 0.337 & 0.249 & 0.243 & 0.622 & 0.244 & 0.282 & 0.473 & 0.191 \\
+Llama-Nemo-49B (r-on) & 60 & 0.409 & 0.381 & 0.435 & 0.000 & 0.000 & 0.165 & 0.112 & 0.110 & 0.409 & -0.183 & 0.000 & 0.364 & 0.000 \\
+Nemo-H-47B (r-on) & 8 & 0.668 & 0.594 & 0.720 & 0.338 & 0.002 & 0.346 & 0.293 & 0.288 & 0.668 & 0.362 & 0.338 & 0.356 & 0.337 \\
+Nemo-H-47B (r-on) & 10 & 0.641 & 0.638 & 0.645 & 0.301 & 0.001 & 0.302 & 0.251 & 0.246 & 0.641 & 0.283 & 0.301 & 0.321 & 0.286 \\
+Nemo-H-47B (r-on) & 15 & 0.582 & 0.482 & 0.650 & 0.193 & 0.000 & 0.202 & 0.160 & 0.157 & 0.583 & 0.179 & 0.193 & 0.227 & 0.171 \\
+Nemo-H-47B (r-on) & 20 & 0.556 & 0.406 & 0.646 & 0.144 & 0.000 & 0.153 & 0.121 & 0.118 & 0.556 & 0.131 & 0.144 & 0.173 & 0.130 \\
+Nemo-H-47B (r-on) & 30 & 0.537 & 0.346 & 0.641 & 0.116 & 0.000 & 0.126 & 0.097 & 0.095 & 0.537 & 0.090 & 0.116 & 0.152 & 0.093 \\
+Nemo-H-47B (r-on) & 40 & 0.505 & 0.067 & 0.663 & 0.021 & 0.000 & 0.022 & 0.017 & 0.016 & 0.505 & 0.029 & 0.021 & 0.028 & 0.017 \\
+Nemo-H-47B (r-on) & 50 & 0.503 & 0.030 & 0.666 & 0.009 & 0.000 & 0.009 & 0.007 & 0.007 & 0.503 & 0.027 & 0.009 & 0.010 & 0.008 \\
+Nemo-H-47B (r-on) & 60 & 0.500 & -- & 0.667 & 0.000 & 0.000 & 0.000 & 0.000 & 0.000 & 0.500 & -- & 0.000 & 0.000 & 0.000 \\
+Qwen3-14B (think) & 8 & 0.853 & 0.829 & 0.871 & 0.706 & 0.473 & 0.708 & 0.638 & 0.629 & 0.853 & 0.737 & 0.706 & 0.711 & 0.706 \\
+Qwen3-14B (think) & 10 & 0.755 & 0.680 & 0.802 & 0.517 & 0.351 & 0.514 & 0.445 & 0.436 & 0.757 & 0.585 & 0.515 & 0.518 & 0.515 \\
+Qwen3-14B (think) & 15 & 0.568 & 0.478 & 0.632 & 0.311 & 0.096 & 0.297 & 0.233 & 0.227 & 0.570 & 0.150 & 0.311 & 0.385 & 0.177 \\
+Qwen3-14B (think) & 20 & 0.516 & 0.604 & 0.379 & 0.225 & 0.000 & 0.212 & 0.157 & 0.153 & 0.516 & 0.037 & 0.225 & 0.290 & 0.093 \\
+Qwen3-14B (think) & 30 & 0.501 & 0.660 & 0.066 & 0.030 & 0.000 & 0.034 & 0.020 & 0.020 & 0.501 & 0.007 & 0.030 & 0.035 & 0.028 \\
+Qwen3-14B (think) & 40 & 0.500 & 0.657 & 0.079 & 0.035 & 0.000 & 0.041 & 0.023 & 0.023 & 0.500 & 0.000 & 0.035 & 0.043 & 0.023 \\
+Qwen3-14B (think) & 50 & 0.539 & 0.693 & 0.072 & 0.039 & 0.000 & 0.038 & 0.021 & 0.021 & 0.503 & 0.015 & 0.039 & 0.039 & 0.026 \\
+Qwen3-32B (think) & 8 & 0.824 & 0.788 & 0.850 & 0.647 & 0.482 & 0.648 & 0.576 & 0.566 & 0.823 & 0.687 & 0.645 & 0.655 & 0.645 \\
+Qwen3-32B (think) & 10 & 0.692 & 0.564 & 0.762 & 0.389 & 0.308 & 0.393 & 0.325 & 0.318 & 0.692 & 0.474 & 0.389 & 0.399 & 0.384 \\
+Qwen3-32B (think) & 15 & 0.580 & 0.370 & 0.685 & 0.225 & 0.096 & 0.224 & 0.175 & 0.171 & 0.581 & 0.220 & 0.223 & 0.245 & 0.173 \\
+Qwen3-32B (think) & 20 & 0.548 & 0.475 & 0.604 & 0.284 & 0.046 & 0.272 & 0.210 & 0.205 & 0.550 & 0.104 & 0.278 & 0.389 & 0.141 \\
+Qwen3-32B (think) & 30 & 0.497 & 0.586 & 0.361 & 0.214 & 0.000 & 0.199 & 0.144 & 0.141 & 0.497 & -0.006 & 0.214 & 0.283 & 0.059 \\
+Qwen3-32B (think) & 40 & 0.505 & 0.667 & 0.041 & 0.021 & 0.000 & 0.021 & 0.012 & 0.012 & 0.505 & 0.043 & 0.021 & 0.021 & 0.016 \\
+Qwen3-32B (think) & 50 & 0.583 & 0.722 & 0.167 & 0.091 & 0.000 & 0.091 & 0.052 & 0.052 & 0.545 & 0.227 & 0.091 & 0.091 & 0.091 \\
+QwQ-32B (think) & 8 & 0.919 & 0.912 & 0.925 & 0.837 & 0.407 & 0.837 & 0.784 & 0.775 & 0.919 & 0.849 & 0.837 & 0.837 & 0.837 \\
+QwQ-32B (think) & 10 & 0.831 & 0.796 & 0.855 & 0.661 & 0.331 & 0.661 & 0.588 & 0.578 & 0.831 & 0.703 & 0.661 & 0.661 & 0.661 \\
+QwQ-32B (think) & 15 & 0.598 & 0.339 & 0.711 & 0.206 & 0.115 & 0.204 & 0.155 & 0.151 & 0.598 & 0.316 & 0.206 & 0.206 & 0.196 \\
+QwQ-32B (think) & 20 & 0.566 & 0.234 & 0.697 & 0.132 & 0.041 & 0.132 & 0.089 & 0.087 & 0.566 & 0.266 & 0.132 & 0.132 & 0.132 \\
+QwQ-32B (think) & 30 & 0.512 & 0.224 & 0.645 & 0.124 & 0.008 & 0.113 & 0.080 & 0.078 & 0.512 & 0.037 & 0.124 & 0.140 & 0.050 \\
+QwQ-32B (think) & 40 & 0.559 & 0.554 & 0.565 & 0.309 & 0.000 & 0.298 & 0.233 & 0.228 & 0.560 & 0.121 & 0.309 & 0.436 & 0.155 \\
+QwQ-32B (think) & 50 & 0.500 & 0.645 & 0.154 & 0.091 & 0.000 & 0.083 & 0.046 & 0.046 & 0.500 & 0.000 & 0.091 & 0.091 & 0.000 \\
+\end{longtable}
+\end{landscape}
+
+\section{Architecture-Level Instantiations and Intervention Diagnostics}
+\label{sec:supp-model-instantiations}
+
+The main results of this paper are architecture independent. They apply
+whenever model behavior is evaluated through binary predictions or scalar
+scores. This section illustrates how the same limitations arise in three
+familiar model families: additive classifiers, attention-based models, and
+graph neural networks (GNNs). These examples do not establish additional
+impossibility results. Their purpose is to show why architectural complexity
+does not make a higher prediction metric value a reliable indicator of
+stronger reasoning.
+
+Across these model families, semantic and non-semantic information can both
+affect the final score. If non-semantic information is more predictive on the
+benchmark distribution, a model that exploits it can outperform a model that
+attempts to capture the intended semantic relationship but does so
+imperfectly. The resulting metric ordering is valid as an ordering of
+benchmark performance, but it need not be an ordering of reasoning ability.
+
+\subsection{Additive Classifiers over Feature Blocks}
+\label{sec:supp-additive-instantiation}
+
+We first consider an additive classifier because the contributions of
+semantic and non-semantic information can be represented explicitly. This is
+a grouped abstraction of familiar linear, logistic, and additive
+models~\cite{joachims1998text,fan2008liblinear,hastie1986generalized,
+yuan2006model}.
+
+Following the semantic/non-semantic decomposition in the main paper, let \(z\) denote the
+semantic factor that should determine the label, and let \(c\) denote
+non-semantic information that may also be available to the model. Let
+\[
+a_z=\phi_z(z),
+\qquad
+a_c=\phi_c(c)
+\]
+be feature vectors derived from these components. Consider a model
+\(\model\) with score
+\[
+s_{\model}(x)
+=
+w_z^\top a_z
++
+w_c^\top a_c
++
+b
+\]
+and binary prediction
+\[
+\hat y
+=
+\mathbf{1}[s_{\model}(x)\ge 0].
+\]
+
+Define the two score contributions by
+\[
+S_z(x)=w_z^\top a_z,
+\qquad
+S_c(x)=w_c^\top a_c.
+\]
+Then
+\[
+s_{\model}(x)
+=
+S_z(x)+S_c(x)+b.
+\]
+
+This representation makes two earlier results concrete. First, distinct
+semantic and non-semantic contributions can yield the same scalar score and
+therefore the same prediction and ranking. This is an instance of the
+non-identifiability established in Proposition~1. Second, a larger
+non-semantic contribution may improve benchmark predictions or rankings even
+when it does not improve semantic reasoning.
+
+For example, consider a semantic classifier and a shortcut classifier with
+class-conditional error rates
+\[
+(\delta_1,\delta_2)
+\qquad\text{and}\qquad
+(\epsilon_1,\epsilon_2),
+\]
+respectively. As shown in Proposition~2, the shortcut classifier receives
+higher accuracy whenever
+\[
+\pi\epsilon_1+(1-\pi)\epsilon_2
+<
+\pi\delta_1+(1-\pi)\delta_2,
+\]
+where \(\pi=\Pr[Y=1]\). Analogous comparisons hold for balanced accuracy,
+G-mean, Youden's \(J\), F1, and other prediction metrics.
+
+The additive model makes the interpretation especially clear. The shortcut
+classifier is ranked higher because its non-semantic features produce a more
+favorable benchmark error profile. The higher metric value does not imply
+that the classifier has captured the semantic relationship that determines
+the labels.
+
+A similar conclusion applies to score-based metrics. If the non-semantic
+contribution ranks positive and negative benchmark instances more reliably
+than the semantic contribution, it can increase AUROC. Thus, observing the
+unthresholded score avoids one source of information loss, but it does not
+make metric ordering monotone with reasoning ability.
+
+\subsection{Attention-Based Models}
+\label{sec:supp-attention-instantiation}
+
+Attention-based models provide a less explicit version of the same
+phenomenon. Let an input be
+\[
+x=(t_1,\ldots,t_n),
+\]
+where \(t_j\) is the token occurrence at position \(j\). A Transformer maps
+the input to hidden representations through repeated attention and
+feed-forward transformations~\cite{Vaswani2017Attention}. Abstractly,
+\[
+H^{(0)}=\operatorname{Embed}(x),
+\]
+\[
+H^{(\ell+1)}
+=
+\operatorname{Block}_{\ell}(H^{(\ell)}),
+\qquad
+\ell=0,\ldots,L-1.
+\]
+After the final layer, the model constructs an instance representation
+\[
+h_x=\operatorname{Pool}(H^{(L)})
+\]
+and a scalar score
+\[
+s_{\model}(x)
+=
+w_{\mathrm{cls}}^\top h_x+b_{\mathrm{cls}}.
+\]
+
+In software-engineering tasks, some input information bears directly on the
+intended semantics, while other information may correlate with the labels
+without determining them. In vulnerability detection, for example, relevant
+semantic information may include relationships among sources, checks,
+sanitizers, and sinks. Non-semantic information may include identifier names,
+comments, API names, formatting conventions, or dataset-construction
+artifacts. In SAT solving, semantic information is distributed across
+variables, literals, clauses, and connectives, while generator-specific
+formatting or structural regularities may provide non-semantic cues.
+
+Attention-based models can use either kind of information. A model that
+captures the relevant semantic relationships may still make errors because
+those relationships are difficult to learn. Another model may exploit easier
+non-semantic correlations and obtain a better benchmark error profile or
+ranking. In that case,
+\[
+M(B,\model_c)>M(B,\model_z)
+\]
+may hold even though \(\model_z\) relies more strongly on the intended
+semantic relationship.
+
+This is the practically important implication of the attention
+instantiation. A higher accuracy, F1, ADR, or AUROC does not establish that
+the higher-scoring attention model reasons more effectively. It establishes
+only that the model performs better according to the observable criterion of
+the metric on the evaluated distribution.
+
+Attention weights, gradients, and attribution methods such as Integrated
+Gradients, SHAP, and DeepLIFT can provide additional diagnostic
+information~\cite{Sundararajan2017IG,LundbergLee2017SHAP,
+Shrikumar2017DeepLIFT}. However, these analyses should not be treated as
+direct measures of reasoning. Their results depend on the explanation method,
+the selected representation, and how interactions among tokens are
+allocated. They can motivate further tests, but they do not by themselves
+justify interpreting a higher prediction metric as stronger reasoning.
+
+\subsection{Graph Neural Networks and Message Passing}
+\label{sec:supp-gnn-instantiation}
+
+Graph neural networks instantiate the same limitation in models that operate
+over structured program representations. Let
+\[
+G=(V,E,X)
+\]
+be a program graph, where \(V\) is the node set, \(E\) is the edge set, and
+\(X_v\) is the initial feature vector of node \(v\). A generic
+message-passing layer computes
+\[
+m_v^{(k)}
+=
+\Agg_{u\in N(v)}
+\Msg_k(h_v^{(k)},h_u^{(k)},e_{uv}),
+\]
+followed by
+\[
+h_v^{(k+1)}
+=
+\Upd_k(h_v^{(k)},m_v^{(k)}).
+\]
+After \(K\) layers, the model produces a graph representation
+\[
+h_G
+=
+\Readout_{v\in V}h_v^{(K)}
+\]
+and score
+\[
+s_{\model}(G)=w^\top h_G+b.
+\]
+
+Program graphs may encode AST, control-flow, data-flow, call, or dependence
+relationships. The semantic condition underlying a vulnerability may depend
+on a long-range relation, such as an untrusted value reaching a sink without
+sanitization, a missing bounds check before a memory access, or a particular
+alias being dereferenced under an unsafe path. These relationships can be
+difficult to represent and learn.
+
+At the same time, graph inputs may contain easier non-semantic correlations,
+including risky API names, identifier features, project-specific graph
+patterns, or local motifs introduced by data extraction. A GNN that exploits
+these correlations may obtain a higher metric value than a detector that
+attempts to capture the relevant source-to-sink or control-flow relationship
+but does so imperfectly.
+
+The resulting ranking is again non-monotone with respect to reasoning
+ability. A higher metric value can indicate that local or project-specific
+features are more predictive on the benchmark. It does not necessarily
+indicate that the model has captured the vulnerability condition represented
+by the graph.
+
+Graph explanation methods can help diagnose this possibility. For example,
+GNNExplainer identifies a subgraph and feature subset that approximately
+preserve a model's prediction~\cite{Ying2019GNNExplainer}. An explanation
+centered on a vulnerability-relevant slice may provide encouraging evidence,
+whereas one centered on unrelated names or local graph motifs may reveal a
+potential shortcut. Nevertheless, an explanation describes what influenced
+the model's output under the assumptions of the explanation method. It does
+not establish that the model's metric advantage reflects stronger
+vulnerability reasoning.
+
+\subsection{Intervention-Based Comparison}
+\label{sec:supp-instantiation-interventions}
+
+The model-level examples suggest a common way to strengthen reasoning-oriented
+evaluation. Rather than interpreting an aggregate metric value in isolation,
+an evaluator can examine how model outputs respond to controlled semantic and
+non-semantic changes.
+
+Let \(x_{\Delta z}\) be an instance in which the semantic condition is changed
+while non-semantic information is held as fixed as possible. Let
+\(x_{\Delta c}\) preserve the semantic condition while changing
+non-semantic information. Define the score changes
+\[
+\Delta_z(x)
+=
+\left|
+s_{\model}(x)-s_{\model}(x_{\Delta z})
+\right|
+\]
+and
+\[
+\Delta_c(x)
+=
+\left|
+s_{\model}(x)-s_{\model}(x_{\Delta c})
+\right|.
+\]
+
+A model whose outputs track the intended task semantics should generally
+respond to semantic changes that alter the correct answer and remain
+comparatively stable under semantics-preserving non-semantic changes. For
+binary predictions, analogous quantities can be defined through prediction
+flips:
+\[
+F_z(x)
+=
+\mathbf{1}
+[
+\model(x)\neq\model(x_{\Delta z})
+],
+\]
+\[
+F_c(x)
+=
+\mathbf{1}
+[
+\model(x)\neq\model(x_{\Delta c})
+].
+\]
+
+Matched SAT/UNSAT formulas and vulnerable/fixed program variants approximate
+semantic interventions. Identifier renaming, formatting changes, irrelevant
+code transformations, and generator perturbations approximate
+semantics-preserving non-semantic interventions. Pair, group, and cluster
+metrics summarize success over such controlled instances.
+
+These interventions provide a more informative evaluation design, but the
+limitations of controlled metrics established in the main paper still apply.
+A higher controlled score indicates stronger performance under the selected
+interventions and aggregation rule. It does not automatically imply stronger
+reasoning, because residual non-semantic correlations, intervention quality,
+dependence among instances, and threshold selection can still affect the
+ordering.
+
+\subsection{Summary}
+\label{sec:supp-instantiation-summary}
+
+The three instantiations differ in how information is represented and
+combined, but they support the same interpretation. Additive classifiers may
+combine explicit feature-block contributions. Attention-based models mix
+information across token representations. GNNs aggregate node and edge
+information through message passing. These architectural differences can
+help explain why a model succeeds, but they do not change what a
+prediction-output metric establishes.
+
+Across all three settings, a higher metric value establishes better
+performance under the metric's observable benchmark criterion. It does not,
+without controlled interventions or additional task-specific evidence,
+establish stronger reasoning. Architecture-specific explanations and
+attributions can provide useful diagnostics, while witnesses and controlled
+semantic and non-semantic interventions provide stronger behavioral
+evidence. None of these observations makes an ordinary prediction metric a
+standalone measure of reasoning ability.
+
+\section{Reproduction Notes and Remaining Requirements}
+\label{sec:supp-reproduction}
+
+The accompanying revision package includes CSV files transcribed from the
+source LaTeX tables and CSV outputs for the metric-level, ordering,
+pair-rematching, and confidence-bound analyses. The strict-ordering
+calculation should be rerun on full-precision values before submission.
+Per-instance predictions should then be used to verify every source-table
+cell.
+
+The source matched-separability protocol describes a matched-pair cluster
+bootstrap for dependence within seed families. The supplied summary files do
+not contain per-instance outcomes or bootstrap replicates, so this revision
+does not report invented bootstrap values. A final artifact should resample
+matched pairs within groups, recompute the group-averaged
+\(\hat{s}\), and report a dependence-robust lower quantile beside the
+Clopper--Pearson and Wilson reference bounds.
+
+Witness validation should also be strengthened on the negative side.
+SAT experiments should elicit and check a normalized UNSAT proof when
+feasible; graph-coloring experiments should use a checkable non-colorability
+certificate or a trusted solver trace. Until then, \(W\) remains a
+positive-side constructive reference rather than a complete semantic oracle.
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{paper}
+
+\end{document}

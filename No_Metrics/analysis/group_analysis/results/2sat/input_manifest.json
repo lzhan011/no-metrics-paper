@@ -1,0 +1,77 @@
+{
+  "created_at_utc": "2026-10-02T19:37:38.657698+00:00",
+  "workspace_root": "/scratch/c00590656/loni/Group_Evaluation/No_Metrics/github_repo/no-metrics-paper",
+  "domain": "2-SAT",
+  "inputs": [
+    {
+      "path": "SAT_Group_Evaluation/analysis/open_source_LLM_2SAT_analysis/open_source_LLM_2SAT_group_adr_with_wilson_and_cp_RMC_rmc_paper_open_vendor_case_b.json",
+      "kind": "file"
+    },
+    {
+      "path": "SAT_Group_Evaluation/open_source_LLM_2SAT/NVIDIA/outputs/cnf_llama_nemotron_super_49b_v15_cases_prompt_interleave_zero_shot_desc_allN_3_5_8_10_15_20_25_30_40_50_60_thinking_reasoning_on/results_desc.jsonl",
+      "kind": "file"
+    },
+    {
+      "path": "SAT_Group_Evaluation/open_source_LLM_2SAT/NVIDIA/outputs/cnf_nemotron_h_47b_reasoning_128k_cases_prompt_interleave_zero_shot_desc_allN_3_5_8_10_15_20_25_30_40_50_60_thinking_reasoning_on/results_desc.jsonl",
+      "kind": "file"
+    },
+    {
+      "path": "SAT_Group_Evaluation/open_source_LLM_2SAT/OpenAI/outputs/cnf_gpt_oss_20b_cases_prompt_interleave_zero_shot_desc_allN_3_5_8_10_15_20_25_30_40_50_60_thinking/results_desc.jsonl",
+      "kind": "file"
+    },
+    {
+      "path": "SAT_Group_Evaluation/open_source_LLM_2SAT/OpenAI/outputs/cnf_gpt_oss_20b_unsat_clause_subset_followup_allN_3_5_8_10_15_20_25_30_40_50_60_thinking/results_desc.jsonl",
+      "kind": "file"
+    },
+    {
+      "path": "SAT_Group_Evaluation/open_source_LLM_2SAT/qwen/outputs/cnf_qwen3_14b_cases_prompt_interleave_zero_shot_desc_allN_3_5_8_10_15_20_25_30_40_50_60_thinking/results_desc.jsonl",
+      "kind": "file"
+    },
+    {
+      "path": "SAT_Group_Evaluation/open_source_LLM_2SAT/qwen/outputs/cnf_qwen3_14b_unsat_clause_subset_followup_allN_3_5_8_10_15_20_25_30_40_50_60_thinking/results_desc.jsonl",
+      "kind": "file"
+    },
+    {
+      "path": "SAT_Group_Evaluation/open_source_LLM_2SAT/qwen/outputs/cnf_qwen3_32b_cases_prompt_interleave_zero_shot_desc_allN_3_5_8_10_15_20_25_30_40_50_60_thinking/results_desc.jsonl",
+      "kind": "file"
+    },
+    {
+      "path": "SAT_Group_Evaluation/open_source_LLM_2SAT/qwen/outputs/cnf_qwen3_32b_unsat_clause_subset_followup_allN_3_5_8_10_15_20_25_30_40_50_60_thinking/results_desc.jsonl",
+      "kind": "file"
+    },
+    {
+      "path": "SAT_Group_Evaluation/open_source_LLM_2SAT/qwen/outputs/cnf_qwq_32b_cases_prompt_interleave_zero_shot_desc_allN_3_5_8_10_15_20_25_30_40_50_60_thinking/results_desc.jsonl",
+      "kind": "file"
+    },
+    {
+      "path": "SAT_Group_Evaluation/open_source_LLM_2SAT/qwen/outputs/cnf_qwq_32b_unsat_clause_subset_followup_allN_3_5_8_10_15_20_25_30_40_50_60_thinking/results_desc.jsonl",
+      "kind": "file"
+    }
+  ],
+  "parser_sources": [
+    {
+      "path": "SAT_Group_Evaluation/analysis/commercial_api_results_analysis/compute_commercial_api_metrics.py",
+      "kind": "file",
+      "size_bytes": 46039,
+      "sha256": "2ae2160715e55fdcb5553dbae4fd6263c66e3fab4c57a3a6c31247ef1c97e7e4"
+    },
+    {
+      "path": "SAT_Group_Evaluation/analysis/open_source_LLM_2SAT_analysis/compute_open_source_LLM_2SAT_metrics.py",
+      "kind": "file",
+      "size_bytes": 35069,
+      "sha256": "c3ab07b85bf1713fb206e5dde1424779f17fb3886a958da3b41beb4e8539a482"
+    },
+    {
+      "path": "No_Metrics/analysis/group_analysis/group_metrics.py",
+      "kind": "file",
+      "size_bytes": 14246,
+      "sha256": "c661476e23f30fe7b3973e66be00bc1481d51e91e4d0cc58bfa2ee493a1dd77f"
+    },
+    {
+      "path": "No_Metrics/analysis/group_analysis/run_group_analysis.py",
+      "kind": "file",
+      "size_bytes": 39330,
+      "sha256": "302cea596cd5b9f9d08c2b69c9608fa13a33850bc377612ffa1ebdfdd5da1250"
+    }
+  ]
+}

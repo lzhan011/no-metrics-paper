@@ -1,0 +1,123 @@
+{
+  "created_at_utc": "2026-10-02T19:37:28.893050+00:00",
+  "workspace_root": "/scratch/c00590656/loni/Group_Evaluation/No_Metrics/github_repo/no-metrics-paper",
+  "domain": "3-SAT",
+  "inputs": [
+    {
+      "path": "SAT_Group_Evaluation/analysis/commercial_api_results_analysis/commercial_api_group_adr_report_RMC_caseB.json",
+      "kind": "file"
+    },
+    {
+      "path": "SAT_Group_Evaluation/commercial_api/chatgpt/outputs/gpt-5/N_10/openai_batch_groups_zero_shot_desc/by_file/work/lzhan011/Group_Evaluation/SAT_Group_Evaluation/generate/output/min_edit_3sat_dataset",
+      "kind": "directory"
+    },
+    {
+      "path": "SAT_Group_Evaluation/commercial_api/chatgpt/outputs/gpt-5/N_25/openai_batch_groups_zero_shot_desc/by_file/work/lzhan011/Group_Evaluation/SAT_Group_Evaluation/generate/output/min_edit_3sat_dataset",
+      "kind": "directory"
+    },
+    {
+      "path": "SAT_Group_Evaluation/commercial_api/chatgpt/outputs/gpt-5/N_25/openai_batch_groups_zero_shot_desc_rerun_N25_N30_N40/by_file/work/lzhan011/Group_Evaluation/SAT_Group_Evaluation/generate/output/min_edit_3sat_dataset",
+      "kind": "directory"
+    },
+    {
+      "path": "SAT_Group_Evaluation/commercial_api/chatgpt/outputs/gpt-5/N_30/openai_batch_groups_zero_shot_desc_rerun_N25_N30_N40/by_file/work/lzhan011/Group_Evaluation/SAT_Group_Evaluation/generate/output/min_edit_3sat_dataset",
+      "kind": "directory"
+    },
+    {
+      "path": "SAT_Group_Evaluation/commercial_api/chatgpt/outputs/gpt-5/N_40/openai_batch_groups_zero_shot_desc_rerun_N25_N30_N40/by_file/work/lzhan011/Group_Evaluation/SAT_Group_Evaluation/generate/output/min_edit_3sat_dataset",
+      "kind": "directory"
+    },
+    {
+      "path": "SAT_Group_Evaluation/commercial_api/chatgpt/outputs/gpt-5/N_5/openai_batch_groups_zero_shot_desc/by_file/work/lzhan011/Group_Evaluation/SAT_Group_Evaluation/generate/output/min_edit_3sat_dataset",
+      "kind": "directory"
+    },
+    {
+      "path": "SAT_Group_Evaluation/commercial_api/chatgpt/outputs/gpt-5/N_50/openai_batch_groups_zero_shot_desc/by_file/work/lzhan011/Group_Evaluation/SAT_Group_Evaluation/generate/output/min_edit_3sat_dataset",
+      "kind": "directory"
+    },
+    {
+      "path": "SAT_Group_Evaluation/commercial_api/chatgpt/outputs/gpt-5/N_50/openai_batch_groups_zero_shot_desc_N50_N60/by_file/work/lzhan011/Group_Evaluation/SAT_Group_Evaluation/generate/output/min_edit_3sat_dataset",
+      "kind": "directory"
+    },
+    {
+      "path": "SAT_Group_Evaluation/commercial_api/chatgpt/outputs/gpt-5/N_60/openai_batch_groups_zero_shot_desc/by_file/work/lzhan011/Group_Evaluation/SAT_Group_Evaluation/generate/output/min_edit_3sat_dataset",
+      "kind": "directory"
+    },
+    {
+      "path": "SAT_Group_Evaluation/commercial_api/chatgpt/outputs/gpt-5/N_60/openai_batch_groups_zero_shot_desc_N50_N60/by_file/work/lzhan011/Group_Evaluation/SAT_Group_Evaluation/generate/output/min_edit_3sat_dataset",
+      "kind": "directory"
+    },
+    {
+      "path": "SAT_Group_Evaluation/commercial_api/chatgpt/outputs/gpt-5/openai_batch_groups_zero_shot_desc/by_file/work/lzhan011/Group_Evaluation/SAT_Group_Evaluation/generate/output/min_edit_3sat_dataset",
+      "kind": "directory"
+    },
+    {
+      "path": "SAT_Group_Evaluation/commercial_api/claude/outputs/claude-opus-4-7/N_10/claude_batch_groups_zero_shot_desc_adaptive_thinking_medium_effort/by_file/work/lzhan011/Group_Evaluation/SAT_Group_Evaluation/generate/output/min_edit_3sat_dataset",
+      "kind": "directory"
+    },
+    {
+      "path": "SAT_Group_Evaluation/commercial_api/claude/outputs/claude-opus-4-7/N_25/claude_batch_groups_zero_shot_desc_adaptive_thinking_medium_effort/by_file/work/lzhan011/Group_Evaluation/SAT_Group_Evaluation/generate/output/min_edit_3sat_dataset",
+      "kind": "directory"
+    },
+    {
+      "path": "SAT_Group_Evaluation/commercial_api/claude/outputs/claude-opus-4-7/N_50/claude_batch_groups_zero_shot_desc_adaptive_thinking_medium_effort/by_file/work/lzhan011/Group_Evaluation/SAT_Group_Evaluation/generate/output/min_edit_3sat_dataset",
+      "kind": "directory"
+    },
+    {
+      "path": "SAT_Group_Evaluation/commercial_api/claude/outputs/claude-opus-4-7/N_60/claude_batch_groups_zero_shot_desc_adaptive_thinking_medium_effort/by_file/work/lzhan011/Group_Evaluation/SAT_Group_Evaluation/generate/output/min_edit_3sat_dataset",
+      "kind": "directory"
+    },
+    {
+      "path": "SAT_Group_Evaluation/commercial_api/claude/outputs/claude-opus-4-7/claude_batch_groups_zero_shot_desc_adaptive_thinking_medium_effort/by_file/work/lzhan011/Group_Evaluation/SAT_Group_Evaluation/generate/output/min_edit_3sat_dataset",
+      "kind": "directory"
+    },
+    {
+      "path": "SAT_Group_Evaluation/commercial_api/deepseek/outputs/deepseek-reasoner/N_10/deepseek_batch_groups_zero_shot_desc/by_file/work/lzhan011/Group_Evaluation/SAT_Group_Evaluation/generate/output/min_edit_3sat_dataset",
+      "kind": "directory"
+    },
+    {
+      "path": "SAT_Group_Evaluation/commercial_api/deepseek/outputs/deepseek-reasoner/N_25/deepseek_batch_groups_zero_shot_desc/by_file/work/lzhan011/Group_Evaluation/SAT_Group_Evaluation/generate/output/min_edit_3sat_dataset",
+      "kind": "directory"
+    },
+    {
+      "path": "SAT_Group_Evaluation/commercial_api/deepseek/outputs/deepseek-reasoner/N_30/deepseek_batch_groups_zero_shot_desc/by_file/work/lzhan011/Group_Evaluation/SAT_Group_Evaluation/generate/output/min_edit_3sat_dataset",
+      "kind": "directory"
+    },
+    {
+      "path": "SAT_Group_Evaluation/commercial_api/deepseek/outputs/deepseek-reasoner/N_40/deepseek_batch_groups_zero_shot_desc/by_file/work/lzhan011/Group_Evaluation/SAT_Group_Evaluation/generate/output/min_edit_3sat_dataset",
+      "kind": "directory"
+    },
+    {
+      "path": "SAT_Group_Evaluation/commercial_api/deepseek/outputs/deepseek-reasoner/N_50/deepseek_batch_groups_zero_shot_desc/by_file/work/lzhan011/Group_Evaluation/SAT_Group_Evaluation/generate/output/min_edit_3sat_dataset",
+      "kind": "directory"
+    },
+    {
+      "path": "SAT_Group_Evaluation/commercial_api/deepseek/outputs/deepseek-reasoner/N_60/deepseek_batch_groups_zero_shot_desc/by_file/work/lzhan011/Group_Evaluation/SAT_Group_Evaluation/generate/output/min_edit_3sat_dataset",
+      "kind": "directory"
+    },
+    {
+      "path": "SAT_Group_Evaluation/commercial_api/deepseek/outputs/deepseek-reasoner/deepseek_batch_groups_zero_shot_desc/by_file/work/lzhan011/Group_Evaluation/SAT_Group_Evaluation/generate/output/min_edit_3sat_dataset",
+      "kind": "directory"
+    }
+  ],
+  "parser_sources": [
+    {
+      "path": "SAT_Group_Evaluation/analysis/commercial_api_results_analysis/compute_commercial_api_metrics.py",
+      "kind": "file",
+      "size_bytes": 46039,
+      "sha256": "2ae2160715e55fdcb5553dbae4fd6263c66e3fab4c57a3a6c31247ef1c97e7e4"
+    },
+    {
+      "path": "No_Metrics/analysis/group_analysis/group_metrics.py",
+      "kind": "file",
+      "size_bytes": 14246,
+      "sha256": "c661476e23f30fe7b3973e66be00bc1481d51e91e4d0cc58bfa2ee493a1dd77f"
+    },
+    {
+      "path": "No_Metrics/analysis/group_analysis/run_group_analysis.py",
+      "kind": "file",
+      "size_bytes": 39330,
+      "sha256": "302cea596cd5b9f9d08c2b69c9608fa13a33850bc377612ffa1ebdfdd5da1250"
+    }
+  ]
+}

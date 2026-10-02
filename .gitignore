@@ -1,0 +1,19 @@
+# unpacked evaluation trees (recreated by scripts/unpack_data.sh from data/*.tar.gz)
+SAT_Group_Evaluation/commercial_api/
+SAT_Group_Evaluation/open_source_LLM_2SAT/
+SAT_Group_Evaluation/generate/
+Graph_Colouring_Evaluation/
+# python / latex build artifacts
+__pycache__/
+*.pyc
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+_minted-*/
+# local backups
+*.bak*

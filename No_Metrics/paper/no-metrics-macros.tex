@@ -1,0 +1,38 @@
+% ============================================================
+% Dedicated macro definitions for the no-metrics manuscript.
+% This file replaces the project's general macros.tex.
+% It contains only commands used by no-metrics.
+% ============================================================
+
+% Model-function notation:
+% \model, \model_r, \model_s, s_{\model}, etc.
+%
+% The provide+renew pattern remains safe even when another
+% package or errd.tex has already defined \model.
+\providecommand{\model}{}
+\renewcommand{\model}{f}
+
+% Run-in headings used in the Introduction.
+\providecommand{\parag}[1]{}
+\renewcommand{\parag}[1]{\paragraph{#1}}
+
+% Inline source-code token formatting.
+\providecommand{\prog}[1]{}
+\renewcommand{\prog}[1]{\texttt{#1}}
+
+% Semantic-success subscript, e.g., E_{\sem}(U).
+\providecommand{\sem}{}
+\renewcommand{\sem}{\mathrm{sem}}
+
+% Generic message-passing notation used in the appendix.
+\providecommand{\Agg}{}
+\renewcommand{\Agg}{\operatorname{Agg}}
+
+\providecommand{\Msg}{}
+\renewcommand{\Msg}{\operatorname{Msg}}
+
+\providecommand{\Upd}{}
+\renewcommand{\Upd}{\operatorname{Upd}}
+
+\providecommand{\Readout}{}
+\renewcommand{\Readout}{\operatorname{Readout}}

@@ -1,0 +1,43 @@
+{
+  "created_at_utc": "2026-10-02T19:37:30.910752+00:00",
+  "command": "run_group_analysis.py --output-dir results --skip-input-hashes",
+  "domain": "3-SAT",
+  "primary_lambda": 1.0,
+  "lambdas": [
+    0.0,
+    0.25,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "thresholds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "num_all_lambda_rows": 110,
+  "num_primary_rows": 22,
+  "num_per_group_rows": 380,
+  "num_validation_rows": 418,
+  "all_archived_comparisons_match": true,
+  "num_archived_comparison_mismatches": 0,
+  "maximum_archived_absolute_difference": 0.0,
+  "applicability": [
+    {
+      "domain": "3-SAT",
+      "group_concept_applicable": true,
+      "num_primary_slices": 22,
+      "min_pairs_per_group_maximum": 11,
+      "max_pairs_per_group_maximum": 11,
+      "num_slices_where_threshold_10_is_structurally_possible": 22,
+      "interpretation": "Natural generator group; up to 11 matched SAT/UNSAT pairs."
+    }
+  ]
+}

@@ -1,0 +1,139 @@
+% CC examples
+\newcommand{\Arg}{\CCname{Arg}}
+  \newcommand{\val}{\CCname{val}}
+  \newcommand{\pred}{\CCname{pred}}
+%\newcommand{\Res}{\CCname{Res}}
+  \newcommand{\one}{\CCname{fst}}
+  \newcommand{\all}{\CCname{all}}
+\newcommand{\cArg}[2]{\chcPP[\Arg]{#1}{#2}}
+\newcommand{\cRes}[2]{\chcPP[\Res]{#1}{#2}}
+
+% indentation
+\newcommand{\pind}{\phantom{\prog{xx}}}
+
+% more-defined relation
+\newcommand{\mdefSym}{\OB{\scalebox{1.2}[1]{\MNSleqdot}}}
+\newcommand{\mdef}[2]{\OB{#2\;\mdefSym\;#1}}
+\newcommand{\nmdef}[2]{\ensuremath{#1 \bowtie #2}}
+
+% more-general relation
+\newcommand{\mgSym}{\OB{\sqsubseteq}}
+\newcommand{\mg}[2]{\OB{#1 \mgSym #2}}
+
+% more-general, more-defined
+\newcommand{\tleSym}{\OB{\preceq}}
+\newcommand{\tle}[2]{\OB{#1 \tleSym #2}}
+
+% argument and result types of a function type
+\newcommand{\fargSym}{\textit{arg}}
+\newcommand{\farg}[1]{\OB{\fargSym(#1)}}
+\newcommand{\fresSym}{\textit{res}}
+\newcommand{\fres}[1]{\OB{\fresSym(#1)}}
+
+% ok and error types
+\newcommand{\ok}{\OB{\top}}
+\newcommand{\err}{\OB{\bot}}
+\newcommand{\errname}{error type}
+
+% % pattern abstraction
+% \newcommand{\toPatSym}{\OB{\alpha}}
+% \newcommand{\toPat}[1]{\OB{\toPatSym(#1)}}
+
+% lift an arrow type to the top level
+\newcommand{\toArrSym}{\OB{\mathop\uparrow}}
+\newcommand{\toArr}[1]{\OB{\toArrSym(#1)}}
+
+% % pattern abstraction rules
+% \newcommand{\TOk}{\rn{OK}}
+% \newcommand{\PF}{\rn{P-F}}
+% \newcommand{\PC}{\rn{P-C}}
+%
+% \newcommand{\FOk}{\rn{F-OK}}
+% \newcommand{\FAErr}{\rn{Arg-Err}}
+% \newcommand{\FRErr}{\rn{Res-Err}}
+% \newcommand{\PAlt}{\rn{P-Alt}}
+% \newcommand{\PCId}{\rn{P-C-Idemp}}
+
+% pattern masking
+\newcommand{\maskSym}{\OB{\lhd}}
+\newcommand{\mask}[2]{\OB{#1\maskSym#2}}
+
+% pattern intersection
+\newcommand{\interSym}{\OB{\otimes}}
+\newcommand{\inter}[2]{\OB{#1\interSym#2}}
+
+% pattern union
+\newcommand{\uniSym}{\OB{\oplus}}
+\newcommand{\uni}[2]{\OB{#1\uniSym#2}}
+
+% type matching
+\newcommand{\matchSym}{\ensuremath{\bowtie}}
+\newcommand{\match}[3][{}]{\ensuremath{#2 \matchSym^{#1} #3}}
+
+% unification problem name
+\newcommand{\uup}{\ensuremath{U}}
+
+
+%
+% partial unification macros
+%
+
+\newcommand{\puf}{\ensuremath{\theta_1}}
+\newcommand{\pus}{\ensuremath{\theta_2}}
+\newcommand{\pud}{\ensuremath{\theta_3}}
+\newcommand{\pu}{\ensuremath{\theta}}
+
+\newcommand{\eff}{\ensuremath{P_{11}}}
+\newcommand{\efs}{\ensuremath{P_{12}}}
+\newcommand{\esf}{\ensuremath{P_{21}}}
+\newcommand{\ess}{\ensuremath{P_{22}}}
+\newcommand{\etf}{\ensuremath{P_{31}}}
+\newcommand{\ets}{\ensuremath{P_{32}}}
+
+%\newcommand{\ef}[1][D]{\ensuremath{\chc[#1]{\eff,\efs}}}
+%\newcommand{\es}[1][D]{\ensuremath{\chc[#1]{\esf,\ess}}}
+%\newcommand{\et}[1][D]{\ensuremath{\chc[#1]{\etf,\ets}}}
+
+\newcommand{\vars}[1]{\ensuremath{\textit{vars}(#1)}}
+\newcommand{\normm}[2]{\ensuremath{\|#2\|_{#1}}}
+\newcommand{\rest}[2][\theta]{\ensuremath{#1|_{#2}}}
+\newcommand{\vs}{\textit{vs}}
+
+\newcommand{\epmSym}{\OB{\okcktriangleright}}
+\newcommand{\epm}[2]{\OB{#2::#1}}
+% left is more general
+\newcommand{\mgl}[2]{\ensuremath{#1 \sqsubseteq #2}}
+\newcommand{\nmgl}[2]{\ensuremath{#1 \not\sqsubseteq #2}}
+
+\newcommand{\uf}{\OB{\sigma_1}}
+\newcommand{\us}{\OB{\sigma_2}}
+\newcommand{\ut}{\OB{\sigma_3}}
+
+% evaluation column headers
+\newcommand{\ti}[1][{}]{#1}
+\newcommand{\tvlc}{\ti[vlc]}
+\newcommand{\tsg}{\ti[one]}
+\newcommand{\tall}{\ti[brute]}
+\newcommand{\tdim}{dims}
+\newcommand{\tvar}{variants}
+
+
+\newcommand{\rev}[1]{\setlength{\dummylen}{\fboxrule}\setlength{\fboxrule}{2pt}%
+            \vspace{1ex}\noindent\hfill%
+            \fbox{\begin{minipage}{.96\columnwidth}Added by Sheng: \\ #1\end{minipage}}%
+            \setlength{\fboxrule}{\dummylen}\hfill{}\vspace{1ex}}
+%\renewcommand{\rev}[1]{#1}
+
+\newcommand{\edit}[1]{\setlength{\dummylen}{\fboxrule}\setlength{\fboxrule}{2pt}%
+            \vspace{1ex}\noindent\hfill%
+            \fbox{\begin{minipage}{.96\columnwidth}Edited by Sheng: \textbf{#1}\end{minipage}}%
+            \setlength{\fboxrule}{\dummylen}\hfill{}\vspace{1ex}}
+%\renewcommand{\edit}[1]{}
+
+\newcommand{\qvs}[1]{\ensuremath{vars(#1)}}
+% \newcommand{\fvs}[1]{\ensuremath{fvs(#1)}}
+\newcommand{\ndim}[2]{\ensuremath{sdims(#1,#2)}} 
+
+\newcommand{\unifypSym}{\OB{\unifySym'}}
+\newcommand{\unifyp}[2]{\OB{\unifypSym(#1,#2)}}
+

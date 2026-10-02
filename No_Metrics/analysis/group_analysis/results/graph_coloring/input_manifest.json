@@ -1,0 +1,61 @@
+{
+  "created_at_utc": "2026-10-02T19:37:42.082747+00:00",
+  "workspace_root": "/scratch/c00590656/loni/Group_Evaluation/No_Metrics/github_repo/no-metrics-paper",
+  "domain": "Graph 3-coloring",
+  "inputs": [
+    {
+      "path": "Graph_Colouring_Evaluation/open_source_LLM_3_Colouring/NVIDIA/outputs/cnf_llama_nemotron_super_49b_v15_graph_coloring_cases_interleave_zero_shot_desc_allN_3_5_8_10_15_20_25_30_40_50_60_thinking_reasoning_on/results_desc.jsonl",
+      "kind": "file"
+    },
+    {
+      "path": "Graph_Colouring_Evaluation/open_source_LLM_3_Colouring/NVIDIA/outputs/cnf_nemotron_h_47b_reasoning_128k_graph_coloring_cases_interleave_zero_shot_desc_allN_3_5_8_10_15_20_25_30_40_50_60_thinking_reasoning_on/results_desc.jsonl",
+      "kind": "file"
+    },
+    {
+      "path": "Graph_Colouring_Evaluation/open_source_LLM_3_Colouring/OpenAI/outputs/cnf_gpt_oss_20b_graph_coloring_cases_interleave_zero_shot_desc_allN_3_5_8_10_15_20_25_30_40_50_60_thinking/results_desc.jsonl",
+      "kind": "file"
+    },
+    {
+      "path": "Graph_Colouring_Evaluation/open_source_LLM_3_Colouring/qwen/outputs/cnf_qwen3_14b_graph_coloring_cases_interleave_zero_shot_desc_allN_3_5_8_10_15_20_25_30_40_50_60_thinking/results_desc.jsonl",
+      "kind": "file"
+    },
+    {
+      "path": "Graph_Colouring_Evaluation/open_source_LLM_3_Colouring/qwen/outputs/cnf_qwen3_32b_graph_coloring_cases_interleave_zero_shot_desc_allN_3_5_8_10_15_20_25_30_40_50_60_thinking/results_desc.jsonl",
+      "kind": "file"
+    },
+    {
+      "path": "Graph_Colouring_Evaluation/open_source_LLM_3_Colouring/qwen/outputs/cnf_qwq_32b_graph_coloring_cases_interleave_zero_shot_desc_allN_3_5_8_10_15_20_25_30_40_50_60_thinking/results_desc.jsonl",
+      "kind": "file"
+    },
+    {
+      "path": "SAT_Group_Evaluation/analysis/graph_coloring_results_analysis/open_source_LLM_3_Colouring_group_adr_with_wilson_and_cp_RMC_graph_paper_case_a.json",
+      "kind": "file"
+    }
+  ],
+  "parser_sources": [
+    {
+      "path": "SAT_Group_Evaluation/analysis/commercial_api_results_analysis/compute_commercial_api_metrics.py",
+      "kind": "file",
+      "size_bytes": 46039,
+      "sha256": "2ae2160715e55fdcb5553dbae4fd6263c66e3fab4c57a3a6c31247ef1c97e7e4"
+    },
+    {
+      "path": "SAT_Group_Evaluation/analysis/graph_coloring_results_analysis/graph_coloring_metrics_common.py",
+      "kind": "file",
+      "size_bytes": 27030,
+      "sha256": "a2fb4e05756f341a667665606986016becbc239583f5219af11ec03f21f6e4a9"
+    },
+    {
+      "path": "No_Metrics/analysis/group_analysis/group_metrics.py",
+      "kind": "file",
+      "size_bytes": 14246,
+      "sha256": "c661476e23f30fe7b3973e66be00bc1481d51e91e4d0cc58bfa2ee493a1dd77f"
+    },
+    {
+      "path": "No_Metrics/analysis/group_analysis/run_group_analysis.py",
+      "kind": "file",
+      "size_bytes": 39330,
+      "sha256": "302cea596cd5b9f9d08c2b69c9608fa13a33850bc377612ffa1ebdfdd5da1250"
+    }
+  ]
+}
