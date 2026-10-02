@@ -14,8 +14,7 @@ No_Metrics/
   analysis/group_analysis/    group-level and witness-aware metric recomputation (Table 6 etc.)
 SAT_Group_Evaluation/
   analysis/                   frozen parsers + archived reports/CSVs for 3-SAT and 2-SAT
-  RMC_Paper_ICSE2027_supplementary.tex, CSA_Paper_ICSE2027_supplementary.tex
-                              frozen archive tables that the paper reanalyses (Figure 1, RQ1–RQ3)
+  *.tex                       frozen archive tables that the paper reanalyses (Figure 1, RQ1–RQ3)
   commercial_api/, open_source_LLM_2SAT/, generate/     <- unpacked from data/ (git-ignored)
 Graph_Colouring_Evaluation/   <- unpacked from data/ (git-ignored)
 data/                         gzip tarballs with the raw prediction records and the
@@ -41,9 +40,9 @@ bash scripts/run_all.sh                # tests -> group analysis (~10 min) -> ch
 | Table 6 (group-level metrics incl. witness columns `W`, `A^W`) | `No_Metrics/analysis/group_analysis/run_group_analysis.py` → `results/*/group_metrics_primary_lambda1.csv` | raw prediction records in `data/`, archived reports in `SAT_Group_Evaluation/analysis/` |
 | Table 5 last column (`ADR^{+wu}_all`) | `table5_wu_whole_set.py` | same results |
 | Paragraph "Group metrics versus witness evidence" | `summarize_w_gap.py` | same results |
-| Figure 1 (`fig_*_caseb_byN`) | `No_Metrics/paper/plot_shortcut_margin_from_latex.py` | tables `tab:com_pern_caseB` / `tab:os_pern_caseB` in `SAT_Group_Evaluation/RMC_Paper_ICSE2027_supplementary.tex` |
+| Figure 1 (`fig_*_caseb_byN`) | `No_Metrics/paper/plot_shortcut_margin_from_latex.py` | tables `tab:com_pern_caseB` / `tab:os_pern_caseB` in the archived supplementary tables under `SAT_Group_Evaluation/` |
 | Figure 2 (`fig_*_casec_byN`) | `No_Metrics/paper/plot_shortcut_residualization_sensitivity.py` | `rmc_filtered_*` / `rmc_paper_open_vendor_case_*` CSVs |
-| Tables 1–5, 7–8 and RQ1–RQ3 numbers | copied from the frozen archives | `CSA_Paper_ICSE2027_supplementary.tex`, `RMC_Paper_ICSE2027_supplementary.tex`, archived CSVs |
+| Tables 1–5, 7–8 and RQ1–RQ3 numbers | copied from the frozen archives | archived supplementary tables and CSVs under `SAT_Group_Evaluation/` |
 
 The committed `results/` directory is the output of the last full run; re-running
 regenerates it (the committed figures are pixel-identical to a fresh run).
