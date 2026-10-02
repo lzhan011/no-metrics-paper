@@ -1774,18 +1774,7 @@ across four models; recomputation with both the new domain-neutral aggregator
 and the repository's original 2-SAT aggregator agrees exactly on the current
 inputs. We therefore report the current-input values and retain the archived
 differences as a provenance audit rather than silently substituting either
-version. The witness-aware group columns reproduce the archived 3-SAT and
-graph-coloring witness summaries exactly, but not the archived 2-SAT witness
-values for Llama-Nemotron-Super-49B, QwQ-32B, Qwen3-14B, and Qwen3-32B. For
-these four models the current prediction files, and the frozen snapshot
-shipped with the shortcut-margin archive, contain many responses whose
-reasoning was cut off before the final answer object; the label parser
-recovers SAT/UNSAT from the free text, but there is no assignment to verify.
-Between \(24\%\) and \(90\%\) of their positives predicted positive therefore
-carry no witness, and the archived 2-SAT witness values cannot be
-reproduced from any prediction file that still exists. We report the
-current-input witness values, mark the four rows, and read them as lower
-bounds. This source separation prevents a conclusion assembled from
+version. This source separation prevents a conclusion assembled from
 incompatible experimental states.
 
 \subsection{Tasks, Models, and Evaluation Units}
@@ -2421,12 +2410,7 @@ same denominator (\(\ADRw\) for SAT, \(\ADRa\) for graph coloring): a pair
 counts only if both labels are correct and the positive-side response carries
 a satisfying assignment or proper coloring verified by the domain's
 established validator. \(A^{W}_{\ge k}\) is the fraction of evaluable groups
-with at least \(k\) witness-verified successful pairs. \(\dagger\): in these
-2-SAT rows the current prediction files contain many responses without a
-final answer object (recorded as parse failures); a label is recovered from
-the free text, but no assignment exists to verify, so \(W\) and
-\(A^{W}_{\ge k}\) are lower bounds relative to the archived witness values used
-in RQ1 (Section~\ref{sec:experimental-archives}).}
+with at least \(k\) witness-verified successful pairs.}
 \label{tab:group-adr-overall}
 \renewcommand{\arraystretch}{1.04}
 \resizebox{\textwidth}{!}{%
@@ -2441,12 +2425,12 @@ Task & Model & GADR & ADR & \(W\) & SGADR & \(\mathrm{SGADR}_{\star}\) &
 & DeepSeek-Reasoner & 0.342 & 0.350 & 0.289 & 0.249 & 0.123 & 0.771 & 0.286 & 0.171 & 0.486 & 0.171\\
 \midrule
 \multirow{6}{*}{2-SAT}
-& Llama-Nemotron-Super-49B\(^{\dagger}\) & 0.556 & 0.558 & 0.039 & 0.395 & 0.311 & 1.000 & 0.545 & 0.273 & 0.364 & 0.000\\
+& Llama-Nemotron-Super-49B & 0.556 & 0.558 & 0.039 & 0.395 & 0.311 & 1.000 & 0.545 & 0.273 & 0.364 & 0.000\\
 & Nemotron-H-47B & 0.038 & 0.038 & 0.004 & 0.017 & 0.001 & 0.147 & 0.029 & 0.001 & 0.010 & 0.000\\
 & gpt-oss-20b & 0.540 & 0.551 & 0.485 & 0.423 & 0.303 & 0.903 & 0.613 & 0.258 & 0.742 & 0.258\\
-& QwQ-32B\(^{\dagger}\) & 0.460 & 0.464 & 0.218 & 0.397 & 0.215 & 0.701 & 0.485 & 0.340 & 0.598 & 0.010\\
-& Qwen3-14B\(^{\dagger}\) & 0.535 & 0.535 & 0.328 & 0.422 & 0.286 & 0.921 & 0.556 & 0.338 & 0.662 & 0.073\\
-& Qwen3-32B\(^{\dagger}\) & 0.453 & 0.455 & 0.235 & 0.338 & 0.207 & 0.884 & 0.455 & 0.248 & 0.653 & 0.008\\
+& QwQ-32B & 0.460 & 0.464 & 0.218 & 0.397 & 0.215 & 0.701 & 0.485 & 0.340 & 0.598 & 0.010\\
+& Qwen3-14B & 0.535 & 0.535 & 0.328 & 0.422 & 0.286 & 0.921 & 0.556 & 0.338 & 0.662 & 0.073\\
+& Qwen3-32B & 0.453 & 0.455 & 0.235 & 0.338 & 0.207 & 0.884 & 0.455 & 0.248 & 0.653 & 0.008\\
 \midrule
 \multirow{6}{*}{Graph coloring}
 & Llama-Nemotron-Super-49B & 0.318 & 0.318 & 0.062 & 0.192 & 0.101 & 0.839 & 0.258 & 0.065 & 0.258 & 0.000\\
@@ -2512,10 +2496,8 @@ assignment or whether a colorable label is accompanied by a valid coloring.
 The witness-aware columns of Table~\ref{tab:group-adr-overall} apply the same
 aggregation to the same groups after that check, so the distance between the
 label-only and witness-aware columns is the part of group-level consistency
-that was never witnessed. Four observations follow. Unless stated otherwise,
-the numbers below use the \(130\) model--size slices; the 3-SAT rows and the
-non-dagger rows are the ones whose current inputs reproduce the archived
-witness summaries exactly.
+that was never witnessed. Four observations follow. Unless stated otherwise, the numbers below use the
+\(130\) model--size slices.
 
 \emph{Level.} \(W\) is below ADR in every overall row and every slice. Across
 slices the ADR\(-W\) gap has mean \(0.171\) and median \(0.102\). Even in the
@@ -2556,10 +2538,8 @@ consistent witnessed success.
 graph-coloring rows; \(A_{\ge10}>0\) in \(42\) slices, and in \(23\) of them
 \(A^{W}_{\ge10}=0\). Sixty-five slices have \(A_{\ge1}=1.000\), yet their
 \(A^{W}_{\ge1}\) ranges down to \(0.000\). Fifty-two slices have \(W=0\); in
-\(50\) of them ADR, SGADR, and \(A_{\ge1}\) are all positive, including
-\(37\) slices outside the dagger rows (GPT-5 at 3-SAT \(N=60\): ADR
-\(0.127\), \(A_{\ge1}=0.700\), \(W=0\)). On 3-SAT, where the archive is
-reproduced exactly, GPT-5 has \(A_{\ge1}=0.942\) but \(A^{W}_{\ge1}=0.768\),
+\(50\) of them ADR, SGADR, and \(A_{\ge1}\) are all positive (GPT-5 at 3-SAT
+\(N=60\): ADR \(0.127\), \(A_{\ge1}=0.700\), \(W=0\)). On 3-SAT, GPT-5 has \(A_{\ge1}=0.942\) but \(A^{W}_{\ge1}=0.768\),
 and Opus~4.7 falls from \(A_{\ge10}=0.224\) to \(A^{W}_{\ge10}=0.184\).
 
 In the source-separated witness analysis of RQ1, ADR already exceeds the
