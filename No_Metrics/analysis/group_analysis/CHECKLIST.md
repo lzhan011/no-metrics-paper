@@ -20,11 +20,9 @@
 - [x] Write a concise result and reproduction guide.
 - [x] (2026-09-29) Add two-sided witness variants (`*_with_two_sided_witness`,
   ADR^{+wu}) for 2-SAT from the archived UNSAT clause-subset follow-up files;
-  gpt-oss-20b reproduces the archived values exactly (55/55); QwQ/Qwen3-14B/
-  Qwen3-32B differ for the same SAT-side data reason as above; Llama-Nemotron
-  and Nemotron-H have no follow-up run (values undefined, exported empty).
+  Llama-Nemotron and Nemotron-H have no follow-up run (values undefined,
+  exported empty).
 - [x] (2026-09-29) `summarize_w_gap.py`: statistics for the paper paragraph
   "Group metrics versus witness evidence" (W = ADR^{+w} / ADR^{+wu} / ADR^{+a}).
-- [x] (2026-09-29) Paper Table 6 reverted to one-sided ADR^{+w} as W for
-  2-SAT (two-sided ADR^{+wu} judged too low / undefined for two models);
+- [x] (2026-09-29) Paper Table 6 uses the one-sided ADR^{+w} as W for 2-SAT;
   two-sided columns remain exported.

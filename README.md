@@ -71,11 +71,6 @@ referenced instances.
   archive `.tex` files are kept verbatim; they contain absolute paths of the
   machine they were produced on. `run_group_analysis.py` re-roots every such
   path at the repository root (`rebase_path`), so nothing has to be edited.
-* 3-SAT and graph-colouring witness metrics reproduce the archived
-  `*_with_assignment` values exactly. For four 2-SAT models
-  (Llama-Nemotron-Super-49B, QwQ-32B, Qwen3-14B, Qwen3-32B) the shipped
-  prediction files contain many parse-failed responses without an assignment
-  object; their witness values are therefore lower bounds relative to the
-  archived 2-SAT tables (see the paper, Section "Frozen Archives and Source
-  Separation", and `No_Metrics/analysis/group_analysis/CHECKLIST.md`).
+* `validation_against_archived.csv` in each results directory records the
+  comparison of every recomputed value with the archived reports.
 * The analysis performs no model inference; all inputs are frozen records.

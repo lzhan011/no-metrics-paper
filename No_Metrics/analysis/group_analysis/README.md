@@ -56,8 +56,7 @@ denominator is still all complete pairs (as in the archived implementation),
 so ADR^{+wu} <= ADR^{+w}. When a model has no follow-up records the two-sided
 columns are empty (None), never 0; `num_pairs_negative_witness_available` /
 `_verified` give the coverage. Paper Table `tab:group-adr-overall` uses the
-one-sided ADR^{+w} as W for 2-SAT (decision 2026-09-29: the two-sided values
-are too low and undefined for two models); the two-sided columns stay in the
+one-sided ADR^{+w} as W for 2-SAT; the two-sided columns are exported in the
 CSVs for reference. `summarize_w_gap.py` prints every statistic quoted in the
 accompanying paragraph (`--two-sided` switches 2-SAT to ADR^{+wu}).
 
