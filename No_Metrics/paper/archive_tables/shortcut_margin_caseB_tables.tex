@@ -1,0 +1,179 @@
+% Frozen Case-B per-N tables used to draw Figure 1 (fig_3sat_caseb_byN, fig_2sat_caseb_byN).
+% Extracted verbatim from the shortcut-margin archive; read by plot_shortcut_margin_from_latex.py.
+
+\begin{table*}[ht]
+\centering
+\caption{Per-$N$ RMC metrics under \textbf{Case B} (estimated $\shortcutCeiling$) for the three certified commercial reasoning models on 3-SAT.
+All column definitions match \Cref{tab:com_pern}.
+$\shortcutCeiling$: per-$N$ mean of the permutation-calibrated estimated shortcut ceiling from the final residual CNF side-channel adversary battery (mean/min/max clause length, literal-polarity ratio, variable coverage; calibrated point estimate; the strict UCB-inflated variant is discussed in Remark~\ref{rem:caseb-variants}).
+Here $\shortcutCeiling=\bigl((1+\hatshortcutDisc)/2\bigr)^2-0.25=\hatshortcutDisc/2+{\hatshortcutDisc}^{2}/4$, so it reports only the residual shortcut-only contribution above the Case-A chance floor; e.g.\ $\shortcutCeiling=0.159$ corresponds to $\hatshortcutDisc\approx0.28$.
+ADR$^{+w}$ values copied from Case A (CDCL solver unavailable in Case B runtime).
+$\hat{s}$ is the point-estimate separability used by RMC(no LCB), so RMC(no LCB)$=\hat{s}-\shortcutCeiling$.
+$\mathrm{nRMC}=\max(0,\RMC^{\pm})/(1-\shortcutCeiling)$ (normalized relative to available headroom; $0.000$ when $\RMC^{\pm}\le0$).
+Thus nRMC measures the fraction of remaining headroom above the estimated shortcut ceiling rather than the raw margin itself: for GPT-5, $N=5$ has $\hat{s}=1.000$, so $0.841/(1-0.159)=1.000$, whereas $N=10$ has a slightly larger raw RMC but $\hat{s}=0.982<1$, so $0.862/(1-0.119)=0.979$.
+Positive RMC(CP) or RMC(Wilson) entries indicate that the model clears the estimated Case-B side-channel ceiling under that estimator.}
+\label{tab:com_pern_caseB}
+\renewcommand{\arraystretch}{1.12}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{p{2.2cm}r rrrr rr rr rr rr rr rr}
+\toprule
+\multirow{2}{*}{Model} & \multirow{2}{*}{$N$}
+  & \multirow{2}{*}{Acc}
+  & \multicolumn{2}{c}{F1 (per class)}
+  & \multirow{2}{*}{MCC}
+  & \multirow{2}{*}{G-mean}
+  & \multirow{2}{*}{BalAcc}
+  & \multirow{2}{*}{ADR} & \multirow{2}{*}{ADR$^{+w}$}
+  & \multirow{2}{*}{$\shortcutCeiling$}
+  & \multirow{2}{*}{$\hat{s}$}
+  & \multicolumn{2}{c}{RMC(no LCB)}
+  & \multicolumn{2}{c}{RMC(CP)}
+  & \multicolumn{2}{c}{RMC(Wilson)} \\
+\cmidrule(lr){4-5}\cmidrule(lr){13-14}\cmidrule(lr){15-16}\cmidrule(lr){17-18}
+ & & & F1$_{\mathrm{SAT}}$ & F1$_{\mathrm{UNSAT}}$ & & & & & & &
+  & $\RMC$ & $\mathrm{nRMC}$
+  & $\RMC^{\pm}$ & $\mathrm{nRMC}$
+  & $\RMC^{\pm}$ & $\mathrm{nRMC}$ \\
+\midrule
+\multirow{7}{*}{\makecell[l]{\textbf{GPT-5}\\(Case B)}}
+  & 5  & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 & 0.159 & 1.000 & $+$0.841 & 1.000 & $+$0.770 & 0.915 & $+$0.768 & 0.914 \\
+  & 10 & 0.990 & 0.991 & 0.989 & 0.980 & 0.991 & 0.991 & 0.989 & 0.989 & 0.119 & 0.982 & $+$0.862 & 0.979 & $+$0.778 & 0.883 & $+$0.777 & 0.883 \\
+  & 25 & 0.864 & 0.847 & 0.877 & 0.745 & 0.857 & 0.864 & 0.736 & 0.673 & 0.145 & 0.734 & $+$0.589 & 0.689 & $+$0.467 & 0.546 & $+$0.470 & 0.550 \\
+  & 30 & 0.735 & 0.651 & 0.787 & 0.533 & 0.694 & 0.734 & 0.486 & 0.440 & 0.140 & 0.482 & $+$0.342 & 0.398 & $+$0.227 & 0.264 & $+$0.232 & 0.270 \\
+  & 40 & 0.645 & 0.466 & 0.735 & 0.393 & 0.551 & 0.645 & 0.309 & 0.164 & 0.156 & 0.303 & $+$0.148 & 0.175 & $+$0.054 & 0.064 & $+$0.060 & 0.071 \\
+  & 50 & 0.573 & 0.288 & 0.695 & 0.242 & 0.410 & 0.573 & 0.173 & 0.064 & 0.089 & 0.168 & $+$0.079 & 0.087 & $+$0.010 & 0.011 & $+$0.016 & 0.018 \\
+  & 60 & 0.555 & 0.222 & 0.688 & 0.210 & 0.353 & 0.555 & 0.127 & 0.000 & 0.046 & 0.125 & $+$0.079 & 0.083 & $+$0.021 & 0.022 & $+$0.026 & 0.028 \\
+\midrule
+\multirow{5}{*}{\makecell[l]{\textbf{Opus 4.7}\\\textbf{(med.\ think)}\\(Case B)}}
+  & 5  & 0.945 & 0.947 & 0.942 & 0.892 & 0.944 & 0.945 & 0.897 & 0.813 & 0.139 & 0.891 & $+$0.751 & 0.873 & $+$0.643 & 0.747 & $+$0.644 & 0.749 \\
+  & 10 & 0.959 & 0.960 & 0.958 & 0.918 & 0.958 & 0.959 & 0.917 & 0.861 & 0.117 & 0.919 & $+$0.802 & 0.908 & $+$0.699 & 0.791 & $+$0.700 & 0.793 \\
+  & 25 & 0.935 & 0.956 & 0.875 & 0.838 & 0.889 & 0.894 & 0.759 & 0.655 & 0.086 & 0.791 & $+$0.705 & 0.771 & $+$0.506 & 0.553 & $+$0.516 & 0.564 \\
+  & 50 & 0.527 & 0.620 & 0.372 & 0.134 & 0.467 & 0.555 & 0.200 & 0.060 & 0.065 & 0.218 & $+$0.154 & 0.164 & $+$0.059 & 0.063 & $+$0.066 & 0.070 \\
+  & 60 & 0.530 & 0.656 & 0.256 & 0.157 & 0.382 & 0.549 & 0.156 & 0.000 & 0.031 & 0.146 & $+$0.115 & 0.119 & $+$0.047 & 0.049 & $+$0.053 & 0.055 \\
+\midrule
+\multirow{7}{*}{\makecell[l]{\textbf{DeepSeek-}\\\textbf{Reasoner}\\(Case B)}}
+  & 5  & 0.986 & 0.986 & 0.987 & 0.973 & 0.986 & 0.986 & 0.973 & 0.973 & 0.134 & 0.973 & $+$0.839 & 0.969 & $+$0.758 & 0.875 & $+$0.758 & 0.875 \\
+  & 10 & 0.876 & 0.865 & 0.886 & 0.774 & 0.872 & 0.879 & 0.780 & 0.780 & 0.133 & 0.761 & $+$0.628 & 0.724 & $+$0.509 & 0.587 & $+$0.512 & 0.590 \\
+  & 25 & 0.626 & 0.454 & 0.716 & 0.349 & 0.541 & 0.633 & 0.289 & 0.144 & 0.137 & 0.293 & $+$0.156 & 0.181 & $+$0.061 & 0.070 & $+$0.066 & 0.077 \\
+  & 30 & 0.515 & 0.154 & 0.660 & 0.075 & 0.288 & 0.519 & 0.073 & 0.010 & 0.125 & 0.083 & $-$0.042 & 0.000 & $-$0.089 & 0.000 & $-$0.084 & 0.000 \\
+  & 40 & 0.524 & 0.183 & 0.664 & 0.072 & 0.317 & 0.520 & 0.093 & 0.031 & 0.143 & 0.101 & $-$0.043 & 0.000 & $-$0.096 & 0.000 & $-$0.090 & 0.000 \\
+  & 50 & 0.486 & 0.194 & 0.622 & $-$0.011 & 0.324 & 0.496 & 0.090 & 0.000 & 0.073 & 0.105 & $+$0.032 & 0.034 & $-$0.021 & 0.000 & $-$0.016 & 0.000 \\
+  & 60 & 0.509 & 0.160 & 0.653 & 0.049 & 0.294 & 0.513 & 0.086 & 0.010 & 0.047 & 0.086 & $+$0.039 & 0.041 & $-$0.008 & 0.000 & $-$0.003 & 0.000 \\
+\bottomrule
+\multicolumn{18}{l}{Positive $\RMC^{\pm}$ entries indicate model discrimination above the estimated Case-B side-channel ceiling.}
+\end{tabular}%
+}
+\end{table*}
+
+
+\begin{table*}[ht]
+\centering
+\caption{Open-weight 2-SAT per-$N$ metrics under Case B (estimated $\shortcutCeiling$).
+Values come from the latest local Case-B run with the final residual CNF side-channel feature set and permutation calibration.
+$\hat{s}$ is the point-estimate separability and $\mathrm{nRMC}=\max(0,\RMC^{\pm})/(1-\shortcutCeiling)$.}
+\label{tab:os_pern_caseB}
+\renewcommand{\arraystretch}{1.12}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{p{2.2cm}r rrrr rr rr rr rr rr rr}
+\toprule
+\multirow{2}{*}{Model} & \multirow{2}{*}{$N$}
+  & \multirow{2}{*}{Acc}
+  & \multicolumn{2}{c}{F1 (per class)}
+  & \multirow{2}{*}{MCC}
+  & \multirow{2}{*}{G-mean}
+  & \multirow{2}{*}{BalAcc}
+  & \multirow{2}{*}{ADR} & \multirow{2}{*}{ADR$^{+w}$}
+  & \multirow{2}{*}{$\shortcutCeiling$}
+  & \multirow{2}{*}{$\hat{s}$}
+  & \multicolumn{2}{c}{RMC(no LCB)}
+  & \multicolumn{2}{c}{RMC(CP)}
+  & \multicolumn{2}{c}{RMC(Wilson)} \\
+\cmidrule(lr){4-5}\cmidrule(lr){13-14}\cmidrule(lr){15-16}\cmidrule(lr){17-18}
+ & & & F1$_{\mathrm{SAT}}$ & F1$_{\mathrm{UNSAT}}$ & MCC & & & & & & &
+  $\RMC$ & $\mathrm{nRMC}$
+  & $\RMC^{\pm}$ & $\mathrm{nRMC}$
+  & $\RMC^{\pm}$ & $\mathrm{nRMC}$ \\
+\midrule
+\multirow{11}{*}{\makecell[l]{\textbf{Qwen3-14B}\\\textbf{(think)}\\($N^*=20$)}}
+  & 3  & 0.990 & 0.990 & 0.990 & 0.981 & 0.990 & 0.990 & 0.981 & 0.981 & 0.162 & 0.981 & \cellcolor{green!15}$+$0.819 & \cellcolor{green!15}0.977 & \cellcolor{green!15}$+$0.760 & \cellcolor{green!15}0.907 & \cellcolor{green!15}$+$0.760 & \cellcolor{green!15}0.906 \\
+  & 5  & 0.974 & 0.973 & 0.975 & 0.949 & 0.974 & 0.974 & 0.948 & 0.942 & 0.129 & 0.948 & \cellcolor{green!15}$+$0.819 & \cellcolor{green!15}0.940 & \cellcolor{green!15}$+$0.750 & \cellcolor{green!15}0.861 & \cellcolor{green!15}$+$0.750 & \cellcolor{green!15}0.861 \\
+  & 8  & 0.974 & 0.973 & 0.975 & 0.949 & 0.974 & 0.974 & 0.948 & 0.942 & 0.167 & 0.948 & \cellcolor{green!15}$+$0.781 & \cellcolor{green!15}0.938 & \cellcolor{green!15}$+$0.712 & \cellcolor{green!15}0.855 & \cellcolor{green!15}$+$0.712 & \cellcolor{green!15}0.855 \\
+  & 10 & 0.942 & 0.938 & 0.945 & 0.889 & 0.940 & 0.942 & 0.883 & 0.877 & 0.171 & 0.883 & \cellcolor{green!15}$+$0.712 & \cellcolor{green!15}0.859 & \cellcolor{green!15}$+$0.631 & \cellcolor{green!15}0.761 & \cellcolor{green!15}$+$0.632 & \cellcolor{green!15}0.762 \\
+  & 15 & 0.844 & 0.815 & 0.865 & 0.724 & 0.830 & 0.844 & 0.688 & 0.656 & 0.125 & 0.688 & \cellcolor{green!15}$+$0.563 & \cellcolor{green!15}0.644 & \cellcolor{green!15}$+$0.469 & \cellcolor{green!15}0.536 & \cellcolor{green!15}$+$0.471 & \cellcolor{green!15}0.539 \\
+  & 20 & 0.669 & 0.519 & 0.748 & 0.432 & 0.592 & 0.669 & 0.338 & 0.286 & 0.225 & 0.350 & \cellcolor{green!15}$+$0.125 & \cellcolor{green!15}0.161 & \cellcolor{green!15}$+$0.041 & \cellcolor{green!15}0.053 & \cellcolor{green!15}$+$0.045 & \cellcolor{green!15}0.058 \\
+  & 25 & 0.604 & 0.371 & 0.711 & 0.309 & 0.477 & 0.604 & 0.214 & 0.169 & 0.206 & 0.228 & \cellcolor{green!15}$+$0.022 & \cellcolor{green!15}0.028 & $-$0.047 & 0.000 & $-$0.043 & 0.000 \\
+  & 30 & 0.516 & 0.280 & 0.636 & 0.043 & 0.399 & 0.516 & 0.162 & 0.058 & 0.227 & 0.159 & $-$0.068 & 0.000 & $-$0.126 & 0.000 & $-$0.122 & 0.000 \\
+  & 40 & 0.486 & 0.330 & 0.583 & -0.020 & 0.427 & 0.491 & 0.196 & 0.000 & 0.280 & 0.182 & $-$0.098 & 0.000 & $-$0.162 & 0.000 & $-$0.158 & 0.000 \\
+  & 50 & 0.483 & 0.315 & 0.584 & -0.040 & 0.416 & 0.483 & 0.154 & 0.000 & 0.244 & 0.173 & $-$0.071 & 0.000 & $-$0.134 & 0.000 & $-$0.130 & 0.000 \\
+  & 60 & 0.556 & 0.482 & 0.612 & 0.117 & 0.537 & 0.556 & 0.294 & 0.000 & 0.276 & 0.289 & \cellcolor{green!15}$+$0.013 & \cellcolor{green!15}0.017 & $-$0.072 & 0.000 & $-$0.068 & 0.000 \\
+\midrule
+\multirow{11}{*}{\makecell[l]{\textbf{Qwen3-32B}\\\textbf{(think)}\\($N^*=15$)}}
+  & 3  & 0.979 & 0.979 & 0.980 & 0.959 & 0.979 & 0.979 & 0.959 & 0.959 & 0.167 & 0.959 & \cellcolor{green!15}$+$0.792 & \cellcolor{green!15}0.950 & \cellcolor{green!15}$+$0.712 & \cellcolor{green!15}0.855 & \cellcolor{green!15}$+$0.712 & \cellcolor{green!15}0.855 \\
+  & 5  & 0.955 & 0.952 & 0.957 & 0.913 & 0.953 & 0.955 & 0.909 & 0.909 & 0.107 & 0.909 & \cellcolor{green!15}$+$0.802 & \cellcolor{green!15}0.898 & \cellcolor{green!15}$+$0.711 & \cellcolor{green!15}0.796 & \cellcolor{green!15}$+$0.712 & \cellcolor{green!15}0.797 \\
+  & 8  & 0.926 & 0.920 & 0.931 & 0.861 & 0.923 & 0.926 & 0.851 & 0.843 & 0.163 & 0.851 & \cellcolor{green!15}$+$0.688 & \cellcolor{green!15}0.822 & \cellcolor{green!15}$+$0.589 & \cellcolor{green!15}0.704 & \cellcolor{green!15}$+$0.590 & \cellcolor{green!15}0.705 \\
+  & 10 & 0.905 & 0.895 & 0.913 & 0.825 & 0.900 & 0.905 & 0.810 & 0.777 & 0.168 & 0.810 & \cellcolor{green!15}$+$0.642 & \cellcolor{green!15}0.771 & \cellcolor{green!15}$+$0.538 & \cellcolor{green!15}0.647 & \cellcolor{green!15}$+$0.540 & \cellcolor{green!15}0.649 \\
+  & 15 & 0.748 & 0.663 & 0.799 & 0.574 & 0.704 & 0.748 & 0.496 & 0.430 & 0.147 & 0.496 & \cellcolor{green!15}$+$0.349 & \cellcolor{green!15}0.409 & \cellcolor{green!15}$+$0.245 & \cellcolor{green!15}0.287 & \cellcolor{green!15}$+$0.249 & \cellcolor{green!15}0.292 \\
+  & 20 & 0.624 & 0.397 & 0.727 & 0.376 & 0.498 & 0.624 & 0.248 & 0.207 & 0.198 & 0.248 & \cellcolor{green!15}$+$0.050 & \cellcolor{green!15}0.063 & $-$0.029 & 0.000 & $-$0.024 & 0.000 \\
+  & 25 & 0.568 & 0.246 & 0.698 & 0.254 & 0.375 & 0.567 & 0.142 & 0.100 & 0.178 & 0.140 & $-$0.038 & 0.000 & $-$0.098 & 0.000 & $-$0.092 & 0.000 \\
+  & 30 & 0.574 & 0.270 & 0.700 & 0.270 & 0.395 & 0.574 & 0.157 & 0.083 & 0.233 & 0.156 & $-$0.077 & 0.000 & $-$0.140 & 0.000 & $-$0.135 & 0.000 \\
+  & 40 & 0.525 & 0.173 & 0.667 & 0.094 & 0.307 & 0.525 & 0.099 & 0.000 & 0.304 & 0.094 & $-$0.209 & 0.000 & $-$0.257 & 0.000 & $-$0.252 & 0.000 \\
+  & 50 & 0.471 & 0.274 & 0.584 & -0.074 & 0.385 & 0.469 & 0.151 & 0.000 & 0.234 & 0.148 & $-$0.086 & 0.000 & $-$0.148 & 0.000 & $-$0.144 & 0.000 \\
+  & 60 & 0.485 & 0.267 & 0.603 & -0.014 & 0.383 & 0.494 & 0.167 & 0.000 & 0.238 & 0.147 & $-$0.091 & 0.000 & $-$0.153 & 0.000 & $-$0.148 & 0.000 \\
+\midrule
+\multirow{11}{*}{\makecell[l]{\textbf{QwQ-32B}\\\textbf{(think)}\\($N^*=15$)}}
+  & 3  & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 & 0.142 & 1.000 & \cellcolor{green!15}$+$0.858 & \cellcolor{green!15}1.000 & \cellcolor{green!15}$+$0.786 & \cellcolor{green!15}0.916 & \cellcolor{green!15}$+$0.785 & \cellcolor{green!15}0.915 \\
+  & 5  & 0.990 & 0.990 & 0.990 & 0.980 & 0.990 & 0.990 & 0.980 & 0.980 & 0.118 & 0.980 & \cellcolor{green!15}$+$0.862 & \cellcolor{green!15}0.977 & \cellcolor{green!15}$+$0.777 & \cellcolor{green!15}0.881 & \cellcolor{green!15}$+$0.777 & \cellcolor{green!15}0.880 \\
+  & 8  & 0.980 & 0.980 & 0.980 & 0.960 & 0.980 & 0.980 & 0.960 & 0.960 & 0.156 & 0.960 & \cellcolor{green!15}$+$0.804 & \cellcolor{green!15}0.952 & \cellcolor{green!15}$+$0.708 & \cellcolor{green!15}0.839 & \cellcolor{green!15}$+$0.708 & \cellcolor{green!15}0.839 \\
+  & 10 & 0.949 & 0.947 & 0.952 & 0.904 & 0.948 & 0.949 & 0.899 & 0.869 & 0.157 & 0.899 & \cellcolor{green!15}$+$0.742 & \cellcolor{green!15}0.880 & \cellcolor{green!15}$+$0.635 & \cellcolor{green!15}0.753 & \cellcolor{green!15}$+$0.636 & \cellcolor{green!15}0.755 \\
+  & 15 & 0.803 & 0.755 & 0.835 & 0.659 & 0.778 & 0.803 & 0.606 & 0.556 & 0.161 & 0.606 & \cellcolor{green!15}$+$0.445 & \cellcolor{green!15}0.530 & \cellcolor{green!15}$+$0.323 & \cellcolor{green!15}0.385 & \cellcolor{green!15}$+$0.327 & \cellcolor{green!15}0.390 \\
+  & 20 & 0.641 & 0.441 & 0.736 & 0.406 & 0.532 & 0.641 & 0.283 & 0.242 & 0.208 & 0.283 & \cellcolor{green!15}$+$0.074 & \cellcolor{green!15}0.094 & $-$0.019 & 0.000 & $-$0.013 & 0.000 \\
+  & 25 & 0.576 & 0.276 & 0.700 & 0.270 & 0.400 & 0.576 & 0.162 & 0.111 & 0.194 & 0.160 & $-$0.034 & 0.000 & $-$0.104 & 0.000 & $-$0.098 & 0.000 \\
+  & 30 & 0.515 & 0.059 & 0.673 & 0.124 & 0.174 & 0.515 & 0.030 & 0.000 & 0.223 & 0.030 & $-$0.193 & 0.000 & $-$0.217 & 0.000 & $-$0.213 & 0.000 \\
+  & 40 & 0.487 & 0.093 & 0.642 & 0.043 & 0.221 & 0.509 & 0.033 & 0.011 & 0.286 & 0.049 & $-$0.237 & 0.000 & $-$0.271 & 0.000 & $-$0.266 & 0.000 \\
+  & 50 & 0.506 & 0.044 & 0.667 & 0.044 & 0.150 & 0.506 & 0.023 & 0.000 & 0.232 & 0.022 & $-$0.210 & 0.000 & $-$0.230 & 0.000 & $-$0.227 & 0.000 \\
+  & 60 & 0.500 & -- & 0.667 & -- & 0.000 & 0.500 & 0.000 & 0.000 & 0.272 & 0.000 & $-$0.272 & 0.000 & $-$0.272 & 0.000 & $-$0.272 & 0.000 \\
+\midrule
+\multirow{11}{*}{\makecell[l]{\textbf{gpt-oss-20b}\\\textbf{(reason)}\\($N^*=20$)}}
+  & 3  & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 & 0.109 & 1.000 & \cellcolor{green!15}$+$0.891 & \cellcolor{green!15}1.000 & \cellcolor{green!15}$+$0.691 & \cellcolor{green!15}0.775 & \cellcolor{green!15}$+$0.694 & \cellcolor{green!15}0.778 \\
+  & 5  & 0.970 & 0.970 & 0.970 & 0.939 & 0.970 & 0.970 & 0.939 & 0.939 & 0.067 & 0.940 & \cellcolor{green!15}$+$0.873 & \cellcolor{green!15}0.936 & \cellcolor{green!15}$+$0.642 & \cellcolor{green!15}0.689 & \cellcolor{green!15}$+$0.650 & \cellcolor{green!15}0.697 \\
+  & 8  & 0.924 & 0.918 & 0.930 & 0.858 & 0.921 & 0.924 & 0.848 & 0.818 & 0.126 & 0.848 & \cellcolor{green!15}$+$0.722 & \cellcolor{green!15}0.827 & \cellcolor{green!15}$+$0.483 & \cellcolor{green!15}0.553 & \cellcolor{green!15}$+$0.493 & \cellcolor{green!15}0.564 \\
+  & 10 & 0.894 & 0.896 & 0.892 & 0.788 & 0.894 & 0.894 & 0.818 & 0.758 & 0.209 & 0.799 & \cellcolor{green!15}$+$0.590 & \cellcolor{green!15}0.746 & \cellcolor{green!15}$+$0.335 & \cellcolor{green!15}0.423 & \cellcolor{green!15}$+$0.347 & \cellcolor{green!15}0.438 \\
+  & 15 & 0.848 & 0.833 & 0.861 & 0.709 & 0.844 & 0.848 & 0.697 & 0.636 & 0.175 & 0.712 & \cellcolor{green!15}$+$0.537 & \cellcolor{green!15}0.651 & \cellcolor{green!15}$+$0.286 & \cellcolor{green!15}0.346 & \cellcolor{green!15}$+$0.299 & \cellcolor{green!15}0.363 \\
+  & 20 & 0.742 & 0.679 & 0.785 & 0.528 & 0.716 & 0.742 & 0.515 & 0.424 & 0.242 & 0.512 & \cellcolor{green!15}$+$0.271 & \cellcolor{green!15}0.357 & \cellcolor{green!15}$+$0.048 & \cellcolor{green!15}0.064 & \cellcolor{green!15}$+$0.064 & \cellcolor{green!15}0.084 \\
+  & 25 & 0.652 & 0.596 & 0.693 & 0.315 & 0.637 & 0.652 & 0.364 & 0.242 & 0.302 & 0.406 & \cellcolor{green!15}$+$0.104 & \cellcolor{green!15}0.149 & $-$0.097 & 0.000 & $-$0.082 & 0.000 \\
+  & 30 & 0.576 & 0.333 & 0.689 & 0.221 & 0.446 & 0.576 & 0.182 & 0.091 & 0.260 & 0.199 & $-$0.061 & 0.000 & $-$0.189 & 0.000 & $-$0.175 & 0.000 \\
+  & 40 & 0.492 & 0.250 & 0.615 & 0.115 & 0.374 & 0.537 & 0.154 & 0.000 & 0.252 & 0.140 & $-$0.113 & 0.000 & $-$0.214 & 0.000 & $-$0.202 & 0.000 \\
+  & 50 & 0.500 & 0.083 & 0.656 & 0.000 & 0.208 & 0.500 & 0.045 & 0.000 & 0.247 & 0.043 & $-$0.204 & 0.000 & $-$0.246 & 0.000 & $-$0.241 & 0.000 \\
+  & 60 & 0.523 & 0.160 & 0.667 & 0.090 & 0.295 & 0.523 & 0.091 & 0.000 & 0.313 & 0.087 & $-$0.226 & 0.000 & $-$0.304 & 0.000 & $-$0.293 & 0.000 \\
+\midrule
+\multirow{11}{*}{\makecell[l]{\textbf{Nemotron-H-47B}\\\textbf{Reasoning-128K}\\\textbf{(r-on)}\\($N^*=0$)}}
+  & 3  & 0.525 & 0.663 & 0.200 & 0.087 & 0.332 & 0.525 & 0.068 & 0.038 & 0.141 & 0.110 & $-$0.030 & 0.000 & $-$0.051 & 0.000 & $-$0.050 & 0.000 \\
+  & 5  & 0.513 & 0.670 & 0.071 & 0.082 & 0.191 & 0.513 & 0.030 & 0.002 & 0.151 & 0.037 & $-$0.115 & 0.000 & $-$0.126 & 0.000 & $-$0.125 & 0.000 \\
+  & 8  & 0.500 & 0.666 & 0.002 & 0.000 & 0.032 & 0.500 & 0.001 & 0.000 & 0.159 & 0.001 & $-$0.158 & 0.000 & $-$0.159 & 0.000 & $-$0.159 & 0.000 \\
+  & 10 & 0.497 & 0.664 & 0.002 & -0.049 & 0.032 & 0.497 & 0.001 & 0.000 & 0.160 & 0.001 & $-$0.159 & 0.000 & $-$0.160 & 0.000 & $-$0.159 & 0.000 \\
+  & 15 & 0.512 & 0.669 & 0.072 & 0.072 & 0.194 & 0.512 & 0.026 & 0.000 & 0.192 & 0.037 & $-$0.154 & 0.000 & $-$0.166 & 0.000 & $-$0.165 & 0.000 \\
+  & 20 & 0.511 & 0.666 & 0.091 & 0.053 & 0.219 & 0.510 & 0.034 & 0.000 & 0.217 & 0.048 & $-$0.169 & 0.000 & $-$0.182 & 0.000 & $-$0.181 & 0.000 \\
+  & 25 & 0.520 & 0.663 & 0.167 & 0.074 & 0.301 & 0.520 & 0.068 & 0.000 & 0.212 & 0.091 & $-$0.121 & 0.000 & $-$0.140 & 0.000 & $-$0.139 & 0.000 \\
+  & 30 & 0.499 & 0.660 & 0.047 & -0.007 & 0.155 & 0.499 & 0.020 & 0.000 & 0.225 & 0.024 & $-$0.201 & 0.000 & $-$0.210 & 0.000 & $-$0.209 & 0.000 \\
+  & 40 & 0.518 & 0.670 & 0.105 & 0.094 & 0.236 & 0.518 & 0.052 & 0.000 & 0.245 & 0.056 & $-$0.189 & 0.000 & $-$0.204 & 0.000 & $-$0.203 & 0.000 \\
+  & 50 & 0.509 & 0.661 & 0.110 & 0.038 & 0.241 & 0.509 & 0.048 & 0.000 & 0.242 & 0.058 & $-$0.183 & 0.000 & $-$0.198 & 0.000 & $-$0.197 & 0.000 \\
+  & 60 & 0.521 & 0.666 & 0.156 & 0.085 & 0.291 & 0.521 & 0.073 & 0.000 & 0.238 & 0.085 & $-$0.154 & 0.000 & $-$0.171 & 0.000 & $-$0.171 & 0.000 \\
+\midrule
+\multirow{11}{*}{\makecell[l]{\textbf{Llama-Nemotron}\\\textbf{Super-49B v1.5}\\\textbf{(r-on)}\\($N^*=15$)}}
+  & 3  & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 & 1.000 & 0.955 & 0.024 & 1.000 & \cellcolor{green!15}$+$0.976 & \cellcolor{green!15}1.000 & \cellcolor{green!15}$+$0.691 & \cellcolor{green!15}0.708 & \cellcolor{green!15}$+$0.701 & \cellcolor{green!15}0.718 \\
+  & 5  & 0.977 & 0.978 & 0.977 & 0.956 & 0.977 & 0.977 & 0.955 & 0.955 & 0.101 & 0.955 & \cellcolor{green!15}$+$0.853 & \cellcolor{green!15}0.949 & \cellcolor{green!15}$+$0.551 & \cellcolor{green!15}0.613 & \cellcolor{green!15}$+$0.565 & \cellcolor{green!15}0.628 \\
+  & 8  & 0.955 & 0.952 & 0.957 & 0.913 & 0.953 & 0.955 & 0.909 & 0.909 & 0.139 & 0.909 & \cellcolor{green!15}$+$0.770 & \cellcolor{green!15}0.894 & \cellcolor{green!15}$+$0.460 & \cellcolor{green!15}0.534 & \cellcolor{green!15}$+$0.475 & \cellcolor{green!15}0.552 \\
+  & 10 & 0.864 & 0.842 & 0.880 & 0.756 & 0.853 & 0.864 & 0.727 & 0.727 & 0.174 & 0.727 & \cellcolor{green!15}$+$0.554 & \cellcolor{green!15}0.670 & \cellcolor{green!15}$+$0.247 & \cellcolor{green!15}0.299 & \cellcolor{green!15}$+$0.268 & \cellcolor{green!15}0.324 \\
+  & 15 & 0.727 & 0.625 & 0.786 & 0.542 & 0.674 & 0.727 & 0.455 & 0.318 & 0.127 & 0.455 & \cellcolor{green!15}$+$0.327 & \cellcolor{green!15}0.375 & \cellcolor{green!15}$+$0.079 & \cellcolor{green!15}0.091 & \cellcolor{green!15}$+$0.102 & \cellcolor{green!15}0.117 \\
+  & 20 & 0.750 & 0.667 & 0.800 & 0.577 & 0.707 & 0.750 & 0.500 & 0.455 & 0.279 & 0.500 & \cellcolor{green!15}$+$0.221 & \cellcolor{green!15}0.307 & $-$0.040 & 0.000 & $-$0.017 & 0.000 \\
+  & 25 & 0.727 & 0.625 & 0.786 & 0.542 & 0.674 & 0.727 & 0.455 & 0.136 & 0.313 & 0.455 & \cellcolor{green!15}$+$0.142 & \cellcolor{green!15}0.206 & $-$0.107 & 0.000 & $-$0.084 & 0.000 \\
+  & 30 & 0.614 & 0.485 & 0.691 & 0.262 & 0.560 & 0.614 & 0.273 & 0.045 & 0.217 & 0.314 & \cellcolor{green!15}$+$0.097 & \cellcolor{green!15}0.124 & $-$0.105 & 0.000 & $-$0.085 & 0.000 \\
+  & 40 & 0.591 & 0.357 & 0.700 & 0.265 & 0.466 & 0.591 & 0.182 & 0.000 & 0.313 & 0.217 & $-$0.096 & 0.000 & $-$0.253 & 0.000 & $-$0.234 & 0.000 \\
+  & 50 & 0.568 & 0.457 & 0.642 & 0.149 & 0.530 & 0.568 & 0.318 & 0.000 & 0.247 & 0.281 & \cellcolor{green!15}$+$0.034 & \cellcolor{green!15}0.045 & $-$0.153 & 0.000 & $-$0.135 & 0.000 \\
+  & 60 & 0.400 & 0.222 & 0.512 & -0.024 & 0.340 & 0.491 & 0.077 & 0.000 & 0.163 & 0.115 & $-$0.048 & 0.000 & $-$0.147 & 0.000 & $-$0.136 & 0.000 \\
+\bottomrule
+\multicolumn{18}{l}{\colorbox{green!15}{\phantom{X}} = estimator clears the estimated Case B side-channel ceiling.}
+\end{tabular}%
+}
+\end{table*}
+

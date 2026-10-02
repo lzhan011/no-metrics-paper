@@ -10,11 +10,11 @@ archived analysis code runs unchanged:
 
 ```
 No_Metrics/
-  paper/                      LaTeX sources, bibliography, figures, figure scripts
+  paper/                      LaTeX sources, bibliography, figures, figure scripts,
+                              archive_tables/ (frozen Case-B tables behind Figure 1)
   analysis/group_analysis/    group-level and witness-aware metric recomputation (Table 6 etc.)
 SAT_Group_Evaluation/
   analysis/                   frozen parsers + archived reports/CSVs for 3-SAT and 2-SAT
-  *.tex                       frozen archive tables that the paper reanalyses (Figure 1, RQ1–RQ3)
   commercial_api/, open_source_LLM_2SAT/, generate/     <- unpacked from data/ (git-ignored)
 Graph_Colouring_Evaluation/   <- unpacked from data/ (git-ignored)
 data/                         gzip tarballs with the raw prediction records and the
@@ -40,9 +40,9 @@ bash scripts/run_all.sh                # tests -> group analysis (~10 min) -> ch
 | Table 6 (group-level metrics incl. witness columns `W`, `A^W`) | `No_Metrics/analysis/group_analysis/run_group_analysis.py` → `results/*/group_metrics_primary_lambda1.csv` | raw prediction records in `data/`, archived reports in `SAT_Group_Evaluation/analysis/` |
 | Table 5 last column (`ADR^{+wu}_all`) | `table5_wu_whole_set.py` | same results |
 | Paragraph "Group metrics versus witness evidence" | `summarize_w_gap.py` | same results |
-| Figure 1 (`fig_*_caseb_byN`) | `No_Metrics/paper/plot_shortcut_margin_from_latex.py` | tables `tab:com_pern_caseB` / `tab:os_pern_caseB` in the archived supplementary tables under `SAT_Group_Evaluation/` |
+| Figure 1 (`fig_*_caseb_byN`) | `No_Metrics/paper/plot_shortcut_margin_from_latex.py` | `No_Metrics/paper/archive_tables/shortcut_margin_caseB_tables.tex` |
 | Figure 2 (`fig_*_casec_byN`) | `No_Metrics/paper/plot_shortcut_residualization_sensitivity.py` | `rmc_filtered_*` / `rmc_paper_open_vendor_case_*` CSVs |
-| Tables 1–5, 7–8 and RQ1–RQ3 numbers | copied from the frozen archives | archived supplementary tables and CSVs under `SAT_Group_Evaluation/` |
+| Tables 1–5, 7–8 and RQ1–RQ3 numbers | copied from the frozen archives | archived reports and CSVs under `SAT_Group_Evaluation/analysis/` |
 
 The committed `results/` directory is the output of the last full run; re-running
 regenerates it (the committed figures are pixel-identical to a fresh run).
@@ -66,8 +66,8 @@ referenced instances.
 
 ## Provenance notes
 
-* The archived report JSONs under `SAT_Group_Evaluation/analysis/` and the two
-  archive `.tex` files are kept verbatim; they contain absolute paths of the
+* The archived report JSONs under `SAT_Group_Evaluation/analysis/` are kept
+  verbatim; they contain absolute paths of the
   machine they were produced on. `run_group_analysis.py` re-roots every such
   path at the repository root (`rebase_path`), so nothing has to be edited.
 * `validation_against_archived.csv` in each results directory records the

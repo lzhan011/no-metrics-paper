@@ -3,7 +3,7 @@
     {
       "id": "shortcut-margin-caseb-3sat",
       "surface_class": "paper_main",
-      "source_data": "../../../SAT_Group_Evaluation/RMC_Paper_ICSE2027_supplementary.tex#tab:com_pern_caseB",
+      "source_data": "../archive_tables/shortcut_margin_caseB_tables.tex#tab:com_pern_caseB",
       "generating_script": "../plot_shortcut_margin_from_latex.py",
       "outputs": [
         "shortcut_margin/fig_3sat_caseb_byN.pdf",
@@ -15,7 +15,7 @@
     {
       "id": "shortcut-margin-caseb-2sat",
       "surface_class": "paper_main",
-      "source_data": "../../../SAT_Group_Evaluation/RMC_Paper_ICSE2027_supplementary.tex#tab:os_pern_caseB",
+      "source_data": "../archive_tables/shortcut_margin_caseB_tables.tex#tab:os_pern_caseB",
       "generating_script": "../plot_shortcut_margin_from_latex.py",
       "outputs": [
         "shortcut_margin/fig_2sat_caseb_byN.pdf",
